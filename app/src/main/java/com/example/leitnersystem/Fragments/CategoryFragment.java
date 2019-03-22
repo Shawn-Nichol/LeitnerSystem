@@ -1,27 +1,30 @@
 package com.example.leitnersystem.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
-import com.example.leitnersystem.Activities.DetailsActivity;
+import com.example.leitnersystem.Adapters.CategoryAdapter;
 import com.example.leitnersystem.R;
 
-import butterknife.BindView;
+import java.util.ArrayList;
+
 import butterknife.ButterKnife;
 
 
 public class CategoryFragment extends Fragment {
 
-    @BindView(R.id.button) Button testButton;
 
+
+
+    public ArrayList<String> categoryNames;
     // Fragment requires empty constructor.
     public CategoryFragment() {
     }
@@ -49,35 +52,52 @@ public class CategoryFragment extends Fragment {
 
         // Loads the saved state, if there is one
         //noinspection StatementWithEmptyBody
-        if(savedInstanceState != null) {
-            // TODO: add saved information here.
-        }
-
+//        if(savedInstanceState != null) {
+//            // TODO: add saved information here.
+//        }
 
         //TODO TEST Button remove after recycler view is setup.
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+//        testButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Intent myIntent = new Intent(getActivity(), DetailsActivity.class);
+//
+//                Toast.makeText(getActivity(), "Button Pressed", Toast.LENGTH_SHORT).show();
+//
+//                startActivity(myIntent);
+//
+//            }
+//
+//        });
 
-                Intent myIntent = new Intent(getActivity(), DetailsActivity.class);
+        // TODO: Dummy Data remove after use
+        categoryNames = new ArrayList<>();
+        for(int i = 0; i  < 40; i++) {
+            categoryNames.add(String.valueOf(i));
+        }
+        Log.d("Shawn", " " + categoryNames);
 
+        // RecyclerView handle.
+        RecyclerView recyclerView = view.findViewById(R.id.rv_category);
+        // Connect RecyclerView handle to layoutManager, select LayoutManager.
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        // Specify the RecyclerView adapter.
+        CategoryAdapter recyclerViewAdapter = new CategoryAdapter(getActivity(), categoryNames);
+        // Set the recyclerView to the adapter.
+        recyclerView.setAdapter(recyclerViewAdapter);
 
-                Toast.makeText(getActivity(), "Button Pressed", Toast.LENGTH_SHORT).show();
-
-                startActivity(myIntent);
-
-            }
-
-        });
 
 
         return view;
     }
 
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle currentState) {
-        // TODO: fill on saved instance state with data.
-    }
+//    @Override
+//    public void onSaveInstanceState(@NonNull Bundle currentState) {
+//        // TODO: fill on saved instance state with data.
+//    }
+
+
 }
