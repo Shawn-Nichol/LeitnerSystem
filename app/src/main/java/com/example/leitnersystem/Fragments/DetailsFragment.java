@@ -1,30 +1,35 @@
 package com.example.leitnersystem.Fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
+import com.example.leitnersystem.Adapters.CategoryAdapter;
 import com.example.leitnersystem.R;
 
 
-import java.util.Objects;
+import java.util.ArrayList;
 
-import butterknife.BindView;
+
 import butterknife.ButterKnife;
 
 public class DetailsFragment extends Fragment {
 
+    // Used to store data for RecyclerView
+    private ArrayList<String> detailsInfo;
+
+    // Fragment empty constructor.
     public DetailsFragment() {
     }
 
-    @BindView(R.id.button_details_fragment) Button btnNextFragment;
+
     /**
      * Inflates the fragment_category_layout file
      *
@@ -37,39 +42,36 @@ public class DetailsFragment extends Fragment {
      */
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_details_layout, container, false);
 
         // ButterKnife requires view to bind in fragments.
         ButterKnife.bind(this, view);
 
+        // TODO Dummy Data remove after creating data
+        detailsInfo = new ArrayList<>();
+        for(int i = 1; i <= 5; i++) {
+            detailsInfo.add(String.valueOf(i));
+        }
+
+        Log.d("Shawn", " " + detailsInfo);
+
+        // RecyclerView handle
+        RecyclerView recyclerView = view.findViewById(R.id.rv_details);
+        // Connect recyclerView to layoutManager, select layoutManager.
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        // Specify the Recycler View adapter.
+        CategoryAdapter recyclerViewAdapter = new CategoryAdapter(getActivity(), detailsInfo);
+        // Set the recyclerView to the adapter.
+        recyclerView.setAdapter(recyclerViewAdapter);
 
 
 
 
 
 
-
-
-
-        btnNextFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view2) {
-                Toast.makeText(getActivity(), "Button Pressed 2", Toast.LENGTH_SHORT).show();
-
-                StudyFragment studyFragment = new StudyFragment();
-
-                FragmentManager fragmentManager = getFragmentManager();
-
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                fragmentTransaction
-                        .replace(R.id.details_activity_container, studyFragment)
-                        .commit();
-
-            }
-        });
 
         return view;
     }

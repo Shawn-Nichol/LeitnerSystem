@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:text="Study Fragment"
         android:textColor="@color/colorAccent"
-        android:textSize="40dp"
+        android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

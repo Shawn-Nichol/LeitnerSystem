@@ -1,12 +1,12 @@
 package com.example.leitnersystem.Fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.leitnersystem.R;
 
@@ -29,7 +29,7 @@ public class StudyFragment extends Fragment {
      * @return a View that is the root of the fragments layout
      */
     @Nullable
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_study_layout, container, false);
 

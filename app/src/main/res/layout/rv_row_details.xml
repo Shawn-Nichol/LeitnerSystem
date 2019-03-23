@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:id="@+id/card_container_category"
+    android:id="@+id/card_container_details"
     app:cardCornerRadius="@dimen/card_cornerRadius"
     app:cardElevation="@dimen/card_Elevation"
     style="@style/style_card_view"
@@ -15,7 +15,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/rv_tx_category"
+            android:id="@+id/rv_tx_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

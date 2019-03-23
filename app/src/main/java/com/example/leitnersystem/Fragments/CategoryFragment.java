@@ -21,12 +21,11 @@ import butterknife.ButterKnife;
 
 public class CategoryFragment extends Fragment {
 
-
-
-
+    // Used to story data for recyclerView
     public ArrayList<String> categoryNames;
+
     // Fragment requires empty constructor.
-    public CategoryFragment() {
+        public CategoryFragment() {
     }
 
 
@@ -56,20 +55,6 @@ public class CategoryFragment extends Fragment {
 //            // TODO: add saved information here.
 //        }
 
-        //TODO TEST Button remove after recycler view is setup.
-//        testButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Intent myIntent = new Intent(getActivity(), DetailsActivity.class);
-//
-//                Toast.makeText(getActivity(), "Button Pressed", Toast.LENGTH_SHORT).show();
-//
-//                startActivity(myIntent);
-//
-//            }
-//
-//        });
 
         // TODO: Dummy Data remove after use
         categoryNames = new ArrayList<>();

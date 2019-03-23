@@ -1,5 +1,6 @@
 package com.example.leitnersystem.Activities;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -11,10 +12,19 @@ import com.example.leitnersystem.R;
 
 public class DetailsActivity extends AppCompatActivity {
 
+
+    // Keys for data passed by Intent
+    String mCategory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+
+        Intent mainIntent = getIntent();
+        mCategory = mainIntent.getStringExtra("Category");
+        setTitle(mCategory);
+
+
 
         if(savedInstanceState == null) {
             // Create detailsFragment object
