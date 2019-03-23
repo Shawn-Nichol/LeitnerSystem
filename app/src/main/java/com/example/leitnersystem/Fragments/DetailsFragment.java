@@ -3,6 +3,7 @@ package com.example.leitnersystem.Fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.leitnersystem.Adapters.CategoryAdapter;
 import com.example.leitnersystem.R;
@@ -67,10 +69,18 @@ public class DetailsFragment extends Fragment {
         // Set the recyclerView to the adapter.
         recyclerView.setAdapter(recyclerViewAdapter);
 
+        // FAB handler
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab_button);
 
-
-
-
+        /**
+         * OnClickListener, when FAB is pressed a template will put to enter a new question.
+         */
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "FAB Button2 Pressed", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         return view;

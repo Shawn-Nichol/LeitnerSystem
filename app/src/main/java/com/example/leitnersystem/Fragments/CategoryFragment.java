@@ -3,6 +3,7 @@ package com.example.leitnersystem.Fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.leitnersystem.Adapters.CategoryAdapter;
 import com.example.leitnersystem.R;
@@ -56,6 +58,13 @@ public class CategoryFragment extends Fragment {
 //        }
 
 
+
+
+
+
+
+
+
         // TODO: Dummy Data remove after use
         categoryNames = new ArrayList<>();
         for(int i = 0; i  < 40; i++) {
@@ -73,6 +82,19 @@ public class CategoryFragment extends Fragment {
         // Set the recyclerView to the adapter.
         recyclerView.setAdapter(recyclerViewAdapter);
 
+        // FAB Handler
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab_button);
+        /**
+         * setOnClickListener, will launch new window to enter title for a new Category.
+         */
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // TODO remove after spreed sheet is setup
+                Toast.makeText(getContext(), "FAB Button Press", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         return view;

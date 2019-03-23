@@ -8,4 +8,9 @@
     <dimen name="card_Elevation">8dp</dimen>
     <dimen name="card_layout_margin">16dp</dimen>
 
+    <!--Fab-->
+    <dimen name="fab_size">56dp</dimen>
+    <dimen name="fab_margin">12dp</dimen>
+    <dimen name="fab_elevation">6dp</dimen>
+
 </resources>
