@@ -9,20 +9,18 @@
     </style>
 
 
-    <!--CardView For Categories RecyclerView-->
-    <style name="style_card_view" parent="CardView">
+    <!--CardView Default style-->
+    <style name="card_view" parent="CardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/card_height</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
+        <item name="cardCornerRadius">@dimen/card_cornerRadius</item>
+        <item name="cardElevation">@dimen/card_Elevation</item>
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
         <item name="android:layout_margin">@dimen/card_layout_margin</item>
     </style>
 
 
-    <!--CarView for Details Fragment-->
-    <style name="style_card_details" parent="CardView">
-        <item name="android:clickable">false</item>
-        <item name="android:focusable">true</item>
-        <item name="android:foreground">?android:attr/selectableItemBackground</item>
-        <item name="android:layout_margin">@dimen/card_layout_margin</item>
-    </style>
+
 </resources>

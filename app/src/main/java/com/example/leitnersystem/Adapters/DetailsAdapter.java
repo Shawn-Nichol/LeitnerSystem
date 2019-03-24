@@ -21,13 +21,19 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHold
     // LayoutInflater
     private LayoutInflater mInflater;
 
+    // Context, used to call string resource
+    private Context mContext;
+
 
     /**
      * ViewHolder inner class, Describes an item view and the metadata about its place in the RecyclerView.
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
         // Layout Resources
-        final TextView myTextView;
+        final TextView boxNum;
+        final TextView dayNum;
+        final TextView flashCards;
+        final TextView fcCompleted;
 
         // Layout Resource, OnClickListener will target the cardView,
         // Might not need this will decide later
@@ -35,13 +41,17 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHold
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.rv_tx_details);
+            boxNum = itemView.findViewById(R.id.rv_row_details_tv_box_num);
+            dayNum = itemView.findViewById(R.id.rv_row_details_tv_days);
+            flashCards = itemView.findViewById(R.id.rv_row_details_tv_fc);
+            fcCompleted = itemView.findViewById(R.id.rv_row_details_tv_fc_completed);
             cardview = itemView.findViewById(R.id.card_container_details);
         }
     }
 
     // Constructor
     public DetailsAdapter(Context context, List<String> data) {
+        mContext = context;
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -72,11 +82,38 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHold
      */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String details = mData.get(position);
-        final int rvPosition = holder.getAdapterPosition();
-        holder.myTextView.setText(details);
 
         Log.d("Shawn", "onBindViewHolder called " + position);
+
+        String mBox = mContext.getString(R.string.details_box_num) + mData.get(position);
+        String mBoxDay;
+
+
+
+        switch(position) {
+            case 0:
+                mBoxDay = mContext.getString(R.string.details_day1);
+                break;
+            case 1:
+                mBoxDay = mContext.getString(R.string.details_day2);
+                break;
+            case 2:
+                mBoxDay = mContext.getString(R.string.details_day4);
+                break;
+            case 3:
+                mBoxDay = mContext.getString(R.string.details_day8);
+                break;
+            case 4:
+                mBoxDay = mContext.getString(R.string.details_day_retired);
+                break;
+            default:
+                mBoxDay = mContext.getString(R.string.details_day_error);
+                break;
+        }
+
+        holder.boxNum.setText(mBox);
+        holder.dayNum.setText(mBoxDay);
+
     }
 
     /**

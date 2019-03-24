@@ -29,7 +29,6 @@ public class DetailsActivity extends AppCompatActivity {
         if(savedInstanceState == null) {
             // Create detailsFragment object
             DetailsFragment detailsFragment = new DetailsFragment();
-            StudyFragment studyFragment = new StudyFragment();
 
             // Add fragment to its container
             FragmentManager fragmentManager = getSupportFragmentManager();

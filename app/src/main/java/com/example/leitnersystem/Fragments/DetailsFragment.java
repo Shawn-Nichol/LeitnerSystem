@@ -1,31 +1,43 @@
 package com.example.leitnersystem.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.leitnersystem.Adapters.CategoryAdapter;
+import com.example.leitnersystem.Adapters.DetailsAdapter;
 import com.example.leitnersystem.R;
 
 
 import java.util.ArrayList;
 
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DetailsFragment extends Fragment {
 
     // Used to store data for RecyclerView
     private ArrayList<String> detailsInfo;
+
+    // Buttons
+    @BindView(R.id.btn_study) Button btnStudy;
+    @BindView(R.id.btn_review) Button btnReview;
+    @BindView(R.id.fab_button) FloatingActionButton fab;
+
 
     // Fragment empty constructor.
     public DetailsFragment() {
@@ -65,12 +77,11 @@ public class DetailsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // Specify the Recycler View adapter.
-        CategoryAdapter recyclerViewAdapter = new CategoryAdapter(getActivity(), detailsInfo);
+        DetailsAdapter recyclerViewAdapter = new DetailsAdapter(getActivity(), detailsInfo);
         // Set the recyclerView to the adapter.
         recyclerView.setAdapter(recyclerViewAdapter);
 
-        // FAB handler
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab_button);
+
 
         /**
          * OnClickListener, when FAB is pressed a template will put to enter a new question.
@@ -82,6 +93,40 @@ public class DetailsFragment extends Fragment {
             }
         });
 
+
+        /**
+         * onClickListener, Launch study fragment.
+         */
+        btnStudy.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                // Create studyFragment objec
+                StudyFragment studyFragment = new StudyFragment();
+
+                // FragmentManager handle
+                FragmentManager fragmentManager = getFragmentManager();
+
+                // FragmentTransaction handle
+                FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
+
+                // Start fragment transaction.
+                fragmentTransaction
+                        .replace(R.id.details_activity_container, studyFragment)
+                        .addToBackStack(null)
+                        .commit();
+
+            }
+        });
+
+        /**
+         * OnClickListener, Launch Review study session.
+         */
+        btnReview.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Review Button", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }

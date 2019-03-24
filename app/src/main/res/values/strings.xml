@@ -7,4 +7,21 @@
     <string name="box_3">Box 3</string>
     <string name="box_4">Box 4</string>
     <string name="box_5">Box 5</string>
+
+    <!--rv_row_details text data-->
+    <string name="details_box_num">Box #</string>
+    <string name="details_days">Every Day</string>
+    <string name="details_fc">Flash Cards</string>
+    <string name="details_fc_completed">#/#</string>
+    <!--rv_row_details-->
+    <string name="details_day1">Every day</string>
+    <string name="details_day2">Every 2 days</string>
+    <string name="details_day4">Every 4 days</string>
+    <string name="details_day8">Every 8 days</string>
+    <string name="details_day_error">error</string>
+    <string name="details_day_retired">Retired, only for review</string>
+
+    <!--Buttons Names-->
+    <string name="btn_study">STUDY</string>
+    <string name="btn_review">Review Box 5</string>
 </resources>

@@ -2,15 +2,27 @@
 <resources>
 
 
+    <!--Button-->
+    <dimen name="btn_start_margin">16dp</dimen>
 
     <!--CardView-->
     <dimen name="card_cornerRadius">8dp</dimen>
     <dimen name="card_Elevation">8dp</dimen>
-    <dimen name="card_layout_margin">16dp</dimen>
+    <dimen name="card_layout_margin">8dp</dimen>
+    <dimen name="card_height">80dp</dimen>
 
     <!--Fab-->
     <dimen name="fab_size">56dp</dimen>
-    <dimen name="fab_margin">12dp</dimen>
-    <dimen name="fab_elevation">6dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fab_resting_elevation">6dp</dimen>
+    <dimen name="fab_pressed_elevation">12dp</dimen>
+
+    <!--Details TV-->
+    <dimen name="details_margin">8dp</dimen>
+    <dimen name="details_box_num">24sp</dimen>
+    <dimen name="details_text_size">16sp</dimen>
+    <dimen name="details_text_spacer">4dp</dimen>
+
+
 
 </resources>

@@ -1,13 +1,10 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="100dp"
     android:id="@+id/card_container_details"
-    app:cardCornerRadius="@dimen/card_cornerRadius"
-    app:cardElevation="@dimen/card_Elevation"
-    style="@style/style_card_view"
+    android:clickable="false"
+    android:focusable="false"
+    style="@style/card_view"
     >
 
     <android.support.constraint.ConstraintLayout
@@ -15,14 +12,49 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/rv_tx_details"
+            android:id="@+id/rv_row_details_tv_box_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:textSize="20sp"
+            android:layout_marginStart="@dimen/details_margin"
+            android:layout_marginTop="@dimen/details_margin"
+            android:text="@string/details_box_num"
+            android:textSize="@dimen/details_box_num"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/rv_row_details_tv_fc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/details_margin"
+            android:layout_marginBottom="@dimen/details_text_spacer"
+            android:text="@string/details_fc"
+            android:textSize="@dimen/details_text_size"
+            app:layout_constraintBottom_toTopOf="@+id/rv_row_details_tv_days"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rv_row_details_tv_box_num" />
+
+        <TextView
+            android:id="@+id/rv_row_details_tv_fc_completed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/details_text_spacer"
+            android:text="@string/details_fc_completed"
+            android:textSize="@dimen/details_text_size"
+            app:layout_constraintEnd_toEndOf="@+id/rv_row_details_tv_fc"
+            app:layout_constraintStart_toStartOf="@+id/rv_row_details_tv_fc"
+            app:layout_constraintTop_toBottomOf="@+id/rv_row_details_tv_fc" />
+
+        <TextView
+            android:id="@+id/rv_row_details_tv_days"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/details_margin"
+            android:layout_marginTop="@dimen/details_text_spacer"
+            android:text="@string/details_days"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_row_details_tv_box_num" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>
