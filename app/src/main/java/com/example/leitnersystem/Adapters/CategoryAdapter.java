@@ -13,43 +13,43 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.leitnersystem.Activities.DetailsActivity;
-import com.example.leitnersystem.Fragments.CategoryFragment;
+import com.example.leitnersystem.RoomCategory.Category;
 import com.example.leitnersystem.R;
 
+import java.util.Collections;
 import java.util.List;
 
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder>  {
-
-    // Categories list
-    private final List<String> mData;
-    // LayoutInflater
-    private final LayoutInflater mInflater;
-
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>  {
 
     /**
-     * ViewHolder, describes an item view and the metadata about its place in the RecyclerView.
+     * CategoryViewHolder, describes an item view and the metadata about its place in the RecyclerView.
      */
-    public class ViewHolder extends RecyclerView.ViewHolder  {
+    public class CategoryViewHolder extends RecyclerView.ViewHolder  {
         // Layout Resource
         final TextView myTextView;
         // Layout Resource, onClickListener will target the cardView.
         final CardView cardView;
 
         // Constructor
-        ViewHolder(View itemView) {
+        CategoryViewHolder(View itemView) {
             super(itemView);
             myTextView = itemView.findViewById(R.id.rv_tx_category);
             cardView = itemView.findViewById(R.id.card_container_category);
         }
     }
 
+    private final LayoutInflater mInflater;
+    private List<Category> mCategories = Collections.emptyList();
 
     // Constructor
-    public CategoryAdapter(Context context, List<String> data) {
+    public CategoryAdapter(Context context) {
         this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+    }
 
+    public void setTitles(List<Category> categories) {
+        mCategories = categories;
+        notifyDataSetChanged();
     }
 
     /**
@@ -63,41 +63,34 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
      */
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)  {
+    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)  {
         View view = mInflater.inflate(R.layout.rv_row_category, parent, false);
 
-        return new ViewHolder(view);
+        return new CategoryViewHolder(view);
     }
 
     /**
      * onBindViewHolder, called by the RecyclerView to display data at the specified position. This
      * method will update the contents of the itemView to reflect the item at the given position.
      *
-     * @param holder The ViewHolder will be updated to represent the contents of the item at
+     * @param holder The CategoryViewHolder will be updated to represent the contents of the item at
      *               the given position.
      * @param position The position of the item within the adapter's data set.
      */
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        String category = mData.get(position);
-        final int rvPosition = holder.getAdapterPosition();
-        holder.myTextView.setText(category);
+    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
+        final Category current = mCategories.get(position);
+        holder.myTextView.setText(current.getTitle());
 
-
-        Log.d("Shawn", "onBindViewHolder called " + position);
-
-
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.cardView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Log.d("Shawn", "Position clicked " +  rvPosition);
-
-                // Get context returns the context the view is currently running in.
-                Intent myIntent = new Intent (v.getContext(), DetailsActivity.class);
-                // Category Title
-                myIntent.putExtra("Category", mData.get(position));
+                // Get Context returns the context the view is currently running in.
+                Intent myIntent = new Intent(v.getContext(), DetailsActivity.class);
+                // Category Category
+                Log.d("Shawn", "Category Category " + current.getTitle());
+                myIntent.putExtra("Category", current.getTitle());
                 v.getContext().startActivity(myIntent);
-
             }
         });
     }
@@ -108,6 +101,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
      */
     @Override
     public int getItemCount() {
-        return mData.size();
+        return mCategories.size();
     }
 }

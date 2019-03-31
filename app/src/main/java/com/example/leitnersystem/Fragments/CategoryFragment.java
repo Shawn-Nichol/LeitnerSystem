@@ -1,30 +1,35 @@
 package com.example.leitnersystem.Fragments;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.leitnersystem.Adapters.CategoryAdapter;
+import com.example.leitnersystem.RoomCategory.Category;
+import com.example.leitnersystem.RoomCategory.CategoryViewModel;
 import com.example.leitnersystem.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 
 
 public class CategoryFragment extends Fragment {
 
-    // Used to story data for recyclerView
-    public ArrayList<String> categoryNames;
+    public static final int NEW_TITLE_ACTIVITY_REQUEST_CODE = 1;
+
+    private CategoryViewModel mCategoryViewModel;
 
     // Fragment requires empty constructor.
         public CategoryFragment() {
@@ -51,39 +56,33 @@ public class CategoryFragment extends Fragment {
         // Fragments need to supply a view root in order to bind ButterKnife.
         ButterKnife.bind(this, view);
 
-        // Loads the saved state, if there is one
-        //noinspection StatementWithEmptyBody
-//        if(savedInstanceState != null) {
-//            // TODO: add saved information here.
-//        }
-
-
-
-
-
-
-
-
-
-        // TODO: Dummy Data remove after use
-        categoryNames = new ArrayList<>();
-        for(int i = 0; i  < 40; i++) {
-            categoryNames.add(String.valueOf(i));
-        }
-        Log.d("Shawn", " " + categoryNames);
-
-        // RecyclerView handle.
+        // RecyclerView handler, specify the layout
         RecyclerView recyclerView = view.findViewById(R.id.rv_category);
-        // Connect RecyclerView handle to layoutManager, select LayoutManager.
+
+        // Adapter handler, specify the handler
+        final CategoryAdapter adapter = new CategoryAdapter(getActivity());
+
+        // set adapter to RecyclerView
+        recyclerView.setAdapter(adapter);
+
+        // set the LayoutManager type for the recyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        // Specify the RecyclerView adapter.
-        CategoryAdapter recyclerViewAdapter = new CategoryAdapter(getActivity(), categoryNames);
-        // Set the recyclerView to the adapter.
-        recyclerView.setAdapter(recyclerViewAdapter);
+        // Get new or existing ViewModel from the ViewModel provider.
+        mCategoryViewModel = ViewModelProviders.of(getActivity()).get(CategoryViewModel.class);
+
+        // Observer the LiveData, return by get AlphabetizedWords.
+        // The onChanged() fires when the observed data changes and the activity is in the foreground.
+        mCategoryViewModel.getAllCategories().observe(getActivity(), new Observer<List<Category>>() {
+            @Override
+            public void onChanged(@Nullable final List<Category> categories) {
+                adapter.setTitles(categories);
+            }
+        });
 
         // FAB Handler
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab_button);
+
         /**
          * setOnClickListener, will launch new window to enter title for a new Category.
          */
@@ -91,20 +90,24 @@ public class CategoryFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                // TODO remove after spreed sheet is setup
-                Toast.makeText(getContext(), "FAB Button Press", Toast.LENGTH_SHORT).show();
+                // Create detailsFragment object
+            CategoryNewTitleFragment newTitleFragment = new CategoryNewTitleFragment();
+
+            // FragmentManager handle
+            FragmentManager fragmentManager = getFragmentManager();
+
+            // FragmentTransaction handle
+            FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
+
+            // Start fragment transaction.
+            fragmentTransaction
+                    .replace(R.id.activity_main_container, newTitleFragment)
+                    .addToBackStack(null)
+                    .commit();
+
             }
         });
 
-
         return view;
     }
-
-
-//    @Override
-//    public void onSaveInstanceState(@NonNull Bundle currentState) {
-//        // TODO: fill on saved instance state with data.
-//    }
-
-
 }

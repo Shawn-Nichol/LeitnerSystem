@@ -97,7 +97,7 @@ public class DetailsFragment extends Fragment {
         /**
          * onClickListener, Launch study fragment.
          */
-        btnStudy.setOnClickListener(new View.OnClickListener(){
+    btnStudy.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 // Create studyFragment objec

@@ -26,7 +26,7 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHold
 
 
     /**
-     * ViewHolder inner class, Describes an item view and the metadata about its place in the RecyclerView.
+     * CategoryViewHolder inner class, Describes an item view and the metadata about its place in the RecyclerView.
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
         // Layout Resources
@@ -76,7 +76,7 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHold
      * onBindViewHolder, call by the recyclerView to display data at the specified position. This
      * method will update the contents of the itemView to reflect teh contents of the item.
      *
-     * @param holder This ViewHolder will be updated to represent the contents of the item at the
+     * @param holder This CategoryViewHolder will be updated to represent the contents of the item at the
      *          given position.
      * @param position The position of the item within the adapter data set.
      */
