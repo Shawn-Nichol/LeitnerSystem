@@ -51,7 +51,6 @@ public abstract class QuestionDatabase extends RoomDatabase {
             questionDao.insert(new Question("Question 4", "Answer 4", "romance"));
             questionDao.insert(new Question("Question 5", "Answer 5", "romance"));
 
-
             return null;
         }
     }
