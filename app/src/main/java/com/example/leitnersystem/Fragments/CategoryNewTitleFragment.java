@@ -69,11 +69,9 @@ public class CategoryNewTitleFragment extends Fragment {
                 }
 
 
-
-
-
-
-
+                /**
+                 * ReLaunch CategoryFragment.
+                 */
                 // Create detailsFragment object
                 CategoryFragment categoryFragment = new CategoryFragment();
                 // FragmentManager handle

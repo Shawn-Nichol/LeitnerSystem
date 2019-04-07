@@ -15,7 +15,7 @@ public class CategoryRepository {
     // Constructor
     CategoryRepository(Application application) {
         CategoryRoomDatabase db = CategoryRoomDatabase.getDatabase(application);
-        mCategoryDao = db.titleDao();
+        mCategoryDao = db.CategoryDao();
         mAllTitles = mCategoryDao.getAlphabetizedTitle();
     }
 
@@ -24,7 +24,6 @@ public class CategoryRepository {
     LiveData<List<Category>> getAllTitles() {
         return mAllTitles;
     }
-
 
     public void insert(Category category) {
         new insertAsyncTask(mCategoryDao).execute(category);

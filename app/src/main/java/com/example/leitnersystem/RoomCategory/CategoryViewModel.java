@@ -3,19 +3,16 @@ package com.example.leitnersystem.RoomCategory;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.util.Log;
 
 import java.util.List;
 
 /**
- * View model keeps a reference to the word repository and an up to date list of all words.
+ * View model keeps a reference to the Category repository and an up to date list of all categories.
  */
 public class CategoryViewModel extends AndroidViewModel {
 
-    // Member variable to hold reference to UI
+    // Member variable for DAO and the list of titles
     private CategoryRepository mRepository;
-
-    // Member variable LiveData
     private LiveData<List<Category>> mAllCategories;
 
     // Constructor gets a reference to the repository and a list of Titles from the repository.
@@ -32,8 +29,6 @@ public class CategoryViewModel extends AndroidViewModel {
 
     // Wrapper insert() method that calls the repository insert.
     public void insert(Category category) {
-        Log.d("Shawn", category.toString());
         mRepository.insert(category);
     }
-
 }

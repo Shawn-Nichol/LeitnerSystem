@@ -24,4 +24,6 @@ public interface CategoryDao {
     // Declare a method to delete all the titles,
     @Query("DELETE FROM title_table")
     void deleteAll();
+
+
 }

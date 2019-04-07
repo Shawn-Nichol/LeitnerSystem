@@ -8,6 +8,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
+
+
 /**
  * This is the backend of the title database.
  */
@@ -15,7 +17,7 @@ import android.support.annotation.NonNull;
 public abstract class CategoryRoomDatabase extends RoomDatabase {
 
     // Define the DAO that works with the title db.
-    public abstract CategoryDao titleDao();
+    public abstract CategoryDao CategoryDao();
 
     // Make db a singleton to prevent multiple instances of the db being open at once.
     private static volatile CategoryRoomDatabase INSTANCE;
@@ -55,7 +57,7 @@ public abstract class CategoryRoomDatabase extends RoomDatabase {
         private final CategoryDao mDao;
 
         PopulateDbAsync(CategoryRoomDatabase db) {
-            mDao = db.titleDao();
+            mDao = db.CategoryDao();
         }
 
         @Override

@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.leitnersystem.Activities.DetailsActivity;
+import com.example.leitnersystem.Activities.QuestionActivity;
 import com.example.leitnersystem.RoomCategory.Category;
 import com.example.leitnersystem.R;
 
@@ -65,7 +65,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)  {
         View view = mInflater.inflate(R.layout.rv_row_category, parent, false);
-
         return new CategoryViewHolder(view);
     }
 
@@ -86,7 +85,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             @Override
             public void onClick(View v) {
                 // Get Context returns the context the view is currently running in.
-                Intent myIntent = new Intent(v.getContext(), DetailsActivity.class);
+                Intent myIntent = new Intent(v.getContext(), QuestionActivity.class);
                 // Category Category
                 Log.d("Shawn", "Category Category " + current.getTitle());
                 myIntent.putExtra("Category", current.getTitle());

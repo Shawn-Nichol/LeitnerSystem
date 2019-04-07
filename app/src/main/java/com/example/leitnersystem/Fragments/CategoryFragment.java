@@ -71,11 +71,12 @@ public class CategoryFragment extends Fragment {
         // Get new or existing ViewModel from the ViewModel provider.
         mCategoryViewModel = ViewModelProviders.of(getActivity()).get(CategoryViewModel.class);
 
-        // Observer the LiveData, return by get AlphabetizedWords.
+        // Observer the LiveData, return by get AlphabetizedCategories.
         // The onChanged() fires when the observed data changes and the activity is in the foreground.
         mCategoryViewModel.getAllCategories().observe(getActivity(), new Observer<List<Category>>() {
             @Override
             public void onChanged(@Nullable final List<Category> categories) {
+
                 adapter.setTitles(categories);
             }
         });
