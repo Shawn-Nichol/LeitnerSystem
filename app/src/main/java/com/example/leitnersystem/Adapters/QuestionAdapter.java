@@ -45,9 +45,15 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         notifyDataSetChanged();
     }
 
+    // Used to identify the question the user wants to delete.
     public void setQuestion(List<Question> question) {
         mQuestion =  question;
         notifyDataSetChanged();
+    }
+
+    // Get Question to delete
+    public Question getQuestionAt(int position) {
+        return mQuestion.get(position);
     }
 
     @NonNull
@@ -67,7 +73,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
     @Override
     public int getItemCount() {
-        Log.d(LOGTAG, "getItemCountSize " + mQuestion.size());
         return mQuestion.size();
 
     }

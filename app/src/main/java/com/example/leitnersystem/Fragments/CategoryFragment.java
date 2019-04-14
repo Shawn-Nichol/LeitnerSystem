@@ -11,14 +11,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.leitnersystem.Adapters.CategoryAdapter;
 import com.example.leitnersystem.RoomCategory.Category;
 import com.example.leitnersystem.RoomCategory.CategoryViewModel;
 import com.example.leitnersystem.R;
+import com.example.leitnersystem.RoomQuestion.QuestionViewModel;
 
 import java.util.List;
 
@@ -27,9 +31,10 @@ import butterknife.ButterKnife;
 
 public class CategoryFragment extends Fragment {
 
-    public static final int NEW_TITLE_ACTIVITY_REQUEST_CODE = 1;
+    String LOGTAG = "CategoryFragment";
 
     private CategoryViewModel mCategoryViewModel;
+    private QuestionViewModel mQuestionViewModel;
 
     // Fragment requires empty constructor.
         public CategoryFragment() {
@@ -49,6 +54,7 @@ public class CategoryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(LOGTAG, "onCreateVew");
 
         // Inflate the fragment_category_layout
         View view = inflater.inflate(R.layout.fragment_category_layout, container, false);
@@ -70,6 +76,7 @@ public class CategoryFragment extends Fragment {
 
         // Get new or existing ViewModel from the ViewModel provider.
         mCategoryViewModel = ViewModelProviders.of(getActivity()).get(CategoryViewModel.class);
+        mQuestionViewModel = ViewModelProviders.of(getActivity()).get(QuestionViewModel.class);
 
         // Observer the LiveData, return by get AlphabetizedCategories.
         // The onChanged() fires when the observed data changes and the activity is in the foreground.
@@ -81,8 +88,26 @@ public class CategoryFragment extends Fragment {
             }
         });
 
+        /**
+         * Used to delete Categories and all the questions in them.
+         */
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                mCategoryViewModel.delete(adapter.getCategoryAt(viewHolder.getAdapterPosition()));
+                mQuestionViewModel.deleteAllQuestions();
+                Toast.makeText(getActivity(), "Category and all questions in the category deleted", Toast.LENGTH_SHORT).show();
+            }
+        }).attachToRecyclerView(recyclerView);
+
         // FAB Handler
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab_button);
+        FloatingActionButton fab = view.findViewById(R.id.fab_button);
 
         /**
          * setOnClickListener, will launch new window to enter title for a new Category.
@@ -90,8 +115,9 @@ public class CategoryFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            Log.d(LOGTAG, "FAB pressed");
 
-                // Create detailsFragment object
+            // Create detailsFragment object
             CategoryNewTitleFragment newTitleFragment = new CategoryNewTitleFragment();
 
             // FragmentManager handle

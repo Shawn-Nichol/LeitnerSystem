@@ -13,11 +13,16 @@ public class Question {
     private String question;
     private String answer;
     private String category;
+    private int box;
+    private int counter;
 
-    public Question(String question, String answer, String category) {
+
+    public Question(String question, String answer, String category, int box, int counter) {
         this.question = question;
         this.answer = answer;
         this.category = category;
+        this.box = box;
+        this.counter = counter;
     }
 
     public void setId(int id) {
@@ -38,5 +43,13 @@ public class Question {
 
     public String getCategory() {
         return category;
+    }
+
+    public int getBox() {
+        return box;
+    }
+
+    public int getCounter() {
+        return counter;
     }
 }

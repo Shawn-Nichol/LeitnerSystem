@@ -7,37 +7,36 @@
 
 
     <EditText
-        android:id="@+id/edit_title"
+        android:id="@+id/tv_new_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="New Category"
+        android:hint="New Question"
         android:inputType="textAutoComplete"
         android:padding="6dp"
         android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <EditText
+        android:id="@+id/tv_new_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="New Answer"
+        android:inputType="textAutoComplete"
+        android:padding="6dp"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_new_question"
         tools:layout_editor_absoluteX="16dp" />
 
     <Button
-        android:id="@+id/btn_save"
+        android:id="@+id/btn_question_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="Save"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        tools:layout_editor_absoluteX="65dp" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6" />
 </android.support.constraint.ConstraintLayout>

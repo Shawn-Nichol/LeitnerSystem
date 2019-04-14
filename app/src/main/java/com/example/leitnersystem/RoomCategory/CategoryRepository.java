@@ -29,6 +29,10 @@ public class CategoryRepository {
         new insertAsyncTask(mCategoryDao).execute(category);
     }
 
+    public void delete(Category category) {
+        new DeleteAsyncTask(mCategoryDao).execute(category);
+    }
+
     // Call on a non UI thread.
     private static class insertAsyncTask extends AsyncTask<Category, Void, Void> {
         private CategoryDao mAsyncTaskDao;
@@ -41,6 +45,21 @@ public class CategoryRepository {
         @Override
         protected Void doInBackground(final Category... params) {
             mAsyncTaskDao.insert(params[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteAsyncTask extends AsyncTask<Category, Void, Void> {
+        private CategoryDao mAsyncTaskDao;
+
+        // Constructor
+        DeleteAsyncTask(CategoryDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Category... params) {
+            mAsyncTaskDao.delete(params[0]);
             return null;
         }
     }

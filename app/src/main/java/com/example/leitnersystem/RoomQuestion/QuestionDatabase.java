@@ -45,11 +45,11 @@ public abstract class QuestionDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            questionDao.insert(new Question("Question 1", "Answer 1", "scifi"));
-            questionDao.insert(new Question("Question 2", "Answer 2", "scifi"));
-            questionDao.insert(new Question("Question 3", "Answer 3", "scifi"));
-            questionDao.insert(new Question("Question 4", "Answer 4", "romance"));
-            questionDao.insert(new Question("Question 5", "Answer 5", "romance"));
+            questionDao.insert(new Question("Question 1", "Answer 1", "scifi",1 , 1));
+            questionDao.insert(new Question("Question 2", "Answer 2", "scifi", 1, 1));
+            questionDao.insert(new Question("Question 3", "Answer 3", "scifi", 1, 1));
+            questionDao.insert(new Question("Question 4", "Answer 4", "romance",1, 1));
+            questionDao.insert(new Question("Question 5", "Answer 5", "romance", 1, 1));
 
             return null;
         }

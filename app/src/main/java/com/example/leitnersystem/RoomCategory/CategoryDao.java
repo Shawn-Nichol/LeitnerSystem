@@ -2,6 +2,7 @@ package com.example.leitnersystem.RoomCategory;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
@@ -20,6 +21,9 @@ public interface CategoryDao {
     // Declare method to insert a category
     @Insert
     void insert(Category category);
+
+    @Delete
+    void delete(Category category);
 
     // Declare a method to delete all the titles,
     @Query("DELETE FROM title_table")

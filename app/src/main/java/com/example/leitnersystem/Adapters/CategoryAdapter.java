@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.leitnersystem.Activities.QuestionActivity;
 import com.example.leitnersystem.RoomCategory.Category;
 import com.example.leitnersystem.R;
+import com.example.leitnersystem.RoomQuestion.Question;
 
 import java.util.Collections;
 import java.util.List;
@@ -52,6 +53,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         notifyDataSetChanged();
     }
 
+    // Used to identify the question the user wants to delete.
+    // Get Question to delete
+    public Category getCategoryAt(int position) {
+        return mCategories.get(position);
+    }
+
     /**
      * OnCreateViewHolder, called when RecyclerView needs a new View that can represent the items of
      * the given type.
@@ -70,7 +77,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     /**
      * onBindViewHolder, called by the RecyclerView to display data at the specified position. This
-     * method will update the contents of the itemView to reflect the item at the given position.
+     * method will updateQuestion the contents of the itemView to reflect the item at the given position.
      *
      * @param holder The CategoryViewHolder will be updated to represent the contents of the item at
      *               the given position.

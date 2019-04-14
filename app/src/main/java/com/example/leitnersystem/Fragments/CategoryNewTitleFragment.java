@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
 
 public class CategoryNewTitleFragment extends Fragment {
 
-    public static final String EXTRA_REPLY = "com.example.android.titlelistsql.REPLY";
+    private String LOGTAG = "CategoryNewTitleFragment";
 
     private CategoryViewModel mCategoryViewModel;
 
@@ -40,34 +40,31 @@ public class CategoryNewTitleFragment extends Fragment {
 
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(LOGTAG, "onCreateView");
+
         View view = inflater.inflate(R.layout.fragment_category_new_title_layout, container, false);
 
         // ButterKnife
         ButterKnife.bind(this, view);
 
-
         // Get new or existing ViewModel from the ViewModel provider.
         mCategoryViewModel = ViewModelProviders.of(getActivity()).get(CategoryViewModel.class);
-
-
-
-
 
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Log.d(LOGTAG, "saveButton pressed");
                 String newEntery = String.valueOf(mEditTitleView.getText());
 
-                Log.d("Shawn", "New db category " + newEntery);
+                Log.d(LOGTAG, "New db category = " + newEntery);
                 if(TextUtils.isEmpty(mEditTitleView.getText())) {
                     Toast.makeText(getActivity(), "No New Entry saved", Toast.LENGTH_SHORT).show();
                 } else {
                     Category category = new Category(String.valueOf(mEditTitleView.getText()));
-                    Log.d("Shawn",  "Category " + category.toString());
+                    Log.d(LOGTAG,  "Category  = " + category.toString());
 
                     mCategoryViewModel.insert(category);
                 }
-
 
                 /**
                  * ReLaunch CategoryFragment.
@@ -90,5 +87,4 @@ public class CategoryNewTitleFragment extends Fragment {
 
         return view;
     }
-
 }

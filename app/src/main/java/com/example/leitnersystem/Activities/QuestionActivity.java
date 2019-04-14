@@ -1,5 +1,6 @@
 package com.example.leitnersystem.Activities;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -9,11 +10,14 @@ import android.util.Log;
 
 import com.example.leitnersystem.Fragments.QuestionFragment;
 import com.example.leitnersystem.R;
+import com.example.leitnersystem.RoomQuestion.QuestionViewModel;
 
 public class QuestionActivity extends AppCompatActivity {
 
     String LOGTAG = "QuestionActivity";
-    String keyCategory;
+    String mCurrentCategory;
+
+    private QuestionViewModel mQuestionViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,22 +25,20 @@ public class QuestionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_question);
 
         Intent mainIntent = getIntent();
-        keyCategory = mainIntent.getStringExtra("Category");
+        mCurrentCategory = mainIntent.getStringExtra("Category");
 
-        Log.d(LOGTAG, "Launch");
-        Log.d(LOGTAG, "keyCategory = " + keyCategory);
+        Log.d(LOGTAG, "onCreate");
+        Log.d(LOGTAG, "mCurrentCategory = " + mCurrentCategory);
+
+        // Get new or existing ViewModel from the ViewModel provider
+        mQuestionViewModel = ViewModelProviders.of(this).get(QuestionViewModel.class);
+        mQuestionViewModel.setText(mCurrentCategory);
+        mQuestionViewModel.setTextText(mCurrentCategory);
 
         // Sets title on app bar, easy to tell what category you are in.
-        setTitle(keyCategory);
+        setTitle(mCurrentCategory);
         // Question fragment object.
         QuestionFragment questionFragment = new QuestionFragment();
-
-
-        Bundle bundle = new Bundle();
-        bundle.putString("category", keyCategory);
-        // Passes keyCategory to Fragment, so the adapter can display questions from the db
-        // that match the keyCategory
-        questionFragment.setArguments(bundle);
 
         // Add fragment to its container with Fragment manager
         FragmentManager fragmentManager = getSupportFragmentManager();

@@ -4,17 +4,20 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.leitnersystem.Fragments.CategoryFragment;
 import com.example.leitnersystem.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    String LOGTAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Log.d(LOGTAG, "MainActivity");
         //Only create new fragment when there is no previously saved state
         if(savedInstanceState == null) {
 
@@ -24,15 +27,12 @@ public class MainActivity extends AppCompatActivity {
             // Add the fragment to its container with FragmentManager
             FragmentManager fragmentManager = getSupportFragmentManager();
 
+            // FragmentTransaction
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
             fragmentTransaction
                     .add(R.id.activity_main_container, categoryFragment)
                     .commit();
-
-
         }
-
-
     }
 }

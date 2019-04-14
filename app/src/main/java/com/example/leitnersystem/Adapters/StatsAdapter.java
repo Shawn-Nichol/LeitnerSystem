@@ -74,7 +74,7 @@
 //
 //    /**
 //     * onBindViewHolder, call by the recyclerView to display data at the specified position. This
-//     * method will update the contents of the itemView to reflect teh contents of the item.
+//     * method will updateQuestion the contents of the itemView to reflect teh contents of the item.
 //     *
 //     * @param holder This CategoryViewHolder will be updated to represent the contents of the item at the
 //     *          given position.
