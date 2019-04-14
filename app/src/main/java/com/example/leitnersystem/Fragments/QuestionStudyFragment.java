@@ -42,14 +42,19 @@ public class QuestionStudyFragment extends Fragment {
     private int mCurrentQuestion;
 
 
-    @BindView(R.id.tv_study_question) TextView tvStudyQuestion;
-    @BindView(R.id.tv_study_answer) TextView tvStudyAnswer;
-    @BindView(R.id.btn_study_correct) Button btnCorrect;
-    @BindView(R.id.btn_study_wrong) Button btnWrong;
-    @BindView(R.id.card_answer) CardView cardAnswer;
+    @BindView(R.id.tv_study_question)
+    TextView tvStudyQuestion;
+    @BindView(R.id.tv_study_answer)
+    TextView tvStudyAnswer;
+    @BindView(R.id.btn_study_correct)
+    Button btnCorrect;
+    @BindView(R.id.btn_study_wrong)
+    Button btnWrong;
+    @BindView(R.id.card_answer)
+    CardView cardAnswer;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle onSavedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_question_study_layout,viewGroup, false);
+        View view = inflater.inflate(R.layout.fragment_question_study_layout, viewGroup, false);
         Log.d(LOGTAG, "onCreateView");
 
         mCurrentQuestion = 0;
@@ -65,30 +70,37 @@ public class QuestionStudyFragment extends Fragment {
         mQuestionViewModel.findCategory(category).observe(getActivity(), new Observer<List<Question>>() {
             @Override
             public void onChanged(@Nullable List<Question> questions) {
-                mId = questions.get(mCurrentQuestion).getId();
-                mQuestion = questions.get(mCurrentQuestion).getQuestion();
-                mAnswer = questions.get(mCurrentQuestion).getAnswer();
-                mCategory = questions.get(mCurrentQuestion).getCategory();
-                mBox = questions.get(mCurrentQuestion).getBox();
-                mCounter = questions.get(mCurrentQuestion).getCounter();
-
                 mSize = questions.size();
-                mQuestionViewModel.setSize(String.valueOf(mSize));
+                Log.d(LOGTAG, "Question " + mCurrentQuestion + "/" + mSize);
+
+                if (mCurrentQuestion > mSize) {
+                    btnCorrect.setVisibility(View.GONE);
+                    mId= -1;
+                } else {
+
+                    mId = questions.get(mCurrentQuestion).getId();
+                    mQuestion = questions.get(mCurrentQuestion).getQuestion();
+                    mAnswer = questions.get(mCurrentQuestion).getAnswer();
+                    mCategory = questions.get(mCurrentQuestion).getCategory();
+                    mBox = questions.get(mCurrentQuestion).getBox();
+                    mCounter = questions.get(mCurrentQuestion).getCounter();
 
 
-                            Log.d(LOGTAG,
-                                    "Question: " + (mCurrentQuestion + 1) + "/" + mSize +
-                                            " ID: " + String.valueOf(mId) +
-                                            " Question: " + mQuestion +
-                                            " Answer: " + mAnswer +
-                                            " Category: " + mCategory +
-                                            " Box: " + mBox +
-                                            " Counter: " + mCounter);
+                    mQuestionViewModel.setSize(String.valueOf(mSize));
 
+
+                    Log.d(LOGTAG,
+                            "Question: " + (mCurrentQuestion + 1) + "/" + mSize +
+                                    " ID: " + String.valueOf(mId) +
+                                    " Question: " + mQuestion +
+                                    " Answer: " + mAnswer +
+                                    " Category: " + mCategory +
+                                    " Box: " + mBox +
+                                    " Counter: " + mCounter);
+
+                }
             }
         });
-
-
 
 
         /**
@@ -99,15 +111,13 @@ public class QuestionStudyFragment extends Fragment {
             public void onClick(View v) {
 
 
-                if(mCurrentQuestion < mSize) {
+
                     Question question = new Question(mQuestion, "asnwer tell", "scifi", (mBox + 1), mCounter * 2);
                     question.setId(mId);
                     mQuestionViewModel.updateQuestion(question);
                     mCurrentQuestion++;
 
-                } else {
-                    Toast.makeText(getActivity(), "No more questions", Toast.LENGTH_SHORT).show();
-                }
+
             }
         });
 

@@ -42,10 +42,6 @@ public class QuestionRepository {
     public LiveData<List<Question>> findCategory(String category) {
         return questionDao.findCategory(category);
     }
-//    public void getRowCount() {
-//        new RowCountAsyncTask(questionDao).execute();
-//    }
-
 
 
     private static class InsertAsyncTask extends AsyncTask<Question, Void, Void> {
@@ -104,17 +100,5 @@ public class QuestionRepository {
         }
     }
 
-//    private static class RowCountAsyncTask extends AsyncTask<Void, Void, Void> {
-//        private QuestionDao mAsyncTaskDao;
-//
-//        RowCountAsyncTask(QuestionDao dao) {
-//
-//            this.mAsyncTaskDao = dao;
-//        }
-//        @Override
-//        protected Void doInBackground(Void... voids) {
-//            return mAsyncTaskDao.getRowCount();
-//
-//        }
-//    }
+
 }

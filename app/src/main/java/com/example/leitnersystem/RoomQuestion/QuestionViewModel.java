@@ -75,9 +75,5 @@ public class QuestionViewModel extends AndroidViewModel {
 
     public void updateQuestion(Question question) {mRepository.updateQuestion(question);}
 
-//    public void rowCount() {
-//        mRepository.getRowCount();
-//    }
-
 
 }
