@@ -28,11 +28,11 @@ public interface QuestionDao {
     @Query("SELECT * FROM questions_table")
     LiveData<List<Question>> getAllQuestions();
 
-    // @Query("SELECT * FROM questions_table ORDER BY box ASEND")
+
     @Query("SELECT * FROM questions_table WHERE category = :category")
     LiveData<List<Question>> findCategory(String category);
 
-    // Count cateogry questions
-   @Query("SELECT COUNT(category) FROM questions_table")
-    int getRowCount();
+
+
+
 }

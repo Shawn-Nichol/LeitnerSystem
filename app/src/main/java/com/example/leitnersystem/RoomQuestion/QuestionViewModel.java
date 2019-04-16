@@ -43,9 +43,6 @@ public class QuestionViewModel extends AndroidViewModel {
         mSize = size;
     }
 
-    public int getSize(){
-        return Integer.parseInt(mSize);
-    }
 
     public void setTextText(String input) {
         mCategory = input;

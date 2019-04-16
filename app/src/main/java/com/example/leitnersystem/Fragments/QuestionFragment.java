@@ -32,7 +32,10 @@ import butterknife.ButterKnife;
 public class QuestionFragment extends Fragment {
 
     String LOGTAG = "QuestionFragment";
+
     private QuestionViewModel mQuestionViewModel;
+    private String mCategory;
+
     @BindView(R.id.btn_study) Button btnStudy;
 
     // Fragment requires empty constructor.
@@ -65,23 +68,18 @@ public class QuestionFragment extends Fragment {
 
         // Get new or existing ViewModel from the View Model provider
         mQuestionViewModel = ViewModelProviders.of(getActivity()).get(QuestionViewModel.class);
+        mCategory = mQuestionViewModel.getTextText();
 
-        mQuestionViewModel.getCurrentCategory().observe(getActivity(), new Observer<String>() {
+        mQuestionViewModel.findCategory(mCategory).observe(getActivity(), new Observer<List<Question>>() {
             @Override
-            public void onChanged(@Nullable String s) {
-                final String mCurrentCategory = String.valueOf(s);
+            public void onChanged(@Nullable List<Question> questions) {
+                Log.d(LOGTAG, "ViewModel getCategory " + mCategory);
+                Log.d(LOGTAG, "ViewModel questions + " + questions);
 
-                mQuestionViewModel.findCategory(mCurrentCategory).observe(getActivity(), new Observer<List<Question>>() {
-                    @Override
-                    public void onChanged(@Nullable List<Question> questions) {
-                       Log.d(LOGTAG, "ViewModel getCurrentCategory = " + mCurrentCategory);
-                       Log.d(LOGTAG, "ViewModel questions " + questions);
-
-                       adapter.setQuestion(questions);
-                    }
-                });
+                adapter.setQuestion(questions);
             }
         });
+
 
         /**
          * Used to delete Question by swiping to the left or right.
@@ -98,7 +96,13 @@ public class QuestionFragment extends Fragment {
                 mQuestionViewModel.delete(adapter.getQuestionAt(viewHolder.getAdapterPosition()));
                 Toast.makeText(getActivity(), "Question deleted.", Toast.LENGTH_SHORT).show();
             }
+
+
         }).attachToRecyclerView(recyclerView);
+
+
+
+
 
 
         /**
@@ -109,6 +113,44 @@ public class QuestionFragment extends Fragment {
             public void onClick(View v) {
                 Log.d(LOGTAG, "btnStudy  pressed");
                 QuestionStudyFragment questionStudyFragment = new QuestionStudyFragment();
+
+
+//                mQuestionViewModel.
+                //mQuestionViewModel.getCurrentCategory().observe(getActivity(), new Observer<String>() {
+//                mQuestionViewModel.findCategory(mCategory).observe(getActivity(), new Observer<List<Question>>() {
+//                    @Override
+//                    public void onChanged(@Nullable List<Question> questions) {
+//                        int size = questions.size();
+//                        int id;
+//                        String mQuestion;
+//                        String answer;
+//                        String category;
+//                        int box;
+//                        int counter;
+//
+//                        Log.d(LOGTAG, "btnStudy question count " + size);
+//
+//
+//
+//                        for(int i = 0; i < size; i++) {
+//
+//                            id = questions.get(i).getId();
+//                            mQuestion = questions.get(i).getQuestion();
+//                            answer = questions.get(i).getAnswer();
+//                            category = questions.get(i).getCategory();
+//                            box = questions.get(i).getBox();
+//                            counter = questions.get(i).getCounter();
+//
+//                            Question question = new Question(mQuestion, answer, category, box, (counter -1));
+//                            question.setId(id);
+//
+//                            mQuestionViewModel.updateQuestion(question);
+//                            mQuestionViewModel.findCategory(mCategory).removeObserver(questions);
+//                        }
+//                    }
+//                });
+
+
 
                 fragmentTransaction
                         .replace(R.id.activity_question_container, questionStudyFragment)

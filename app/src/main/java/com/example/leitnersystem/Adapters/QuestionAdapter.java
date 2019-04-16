@@ -1,7 +1,13 @@
 package com.example.leitnersystem.Adapters;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.leitnersystem.Fragments.QuestionDetailFragment;
+import com.example.leitnersystem.Fragments.QuestionFragment;
 import com.example.leitnersystem.R;
 import com.example.leitnersystem.RoomCategory.Category;
 import com.example.leitnersystem.RoomQuestion.Question;
@@ -39,6 +47,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
     private final LayoutInflater mInflater;
     private List<Question> mQuestion = Collections.emptyList();
+    private QuestionViewModel mQuestionViewModel;
 
     public QuestionAdapter(Context context) {
         this.mInflater = LayoutInflater.from(context);
@@ -64,9 +73,34 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull QuestionViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull QuestionViewHolder holder, final int position) {
         final Question current = mQuestion.get(position);
         holder.myTextView.setText(current.getQuestion());
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                Log.d(LOGTAG, "RecyclerView Question number selected " + (position + 1));
+
+                Bundle arguments = new Bundle();
+                arguments.putInt("Key_QuestionNumber", position);
+
+                QuestionDetailFragment questionDetailFragment = new QuestionDetailFragment();
+
+                questionDetailFragment.setArguments(arguments);
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+
+
+
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.activity_question_container, questionDetailFragment)
+                        .addToBackStack(null)
+                        .commit();
+
+            }
+        });
 
 
     }

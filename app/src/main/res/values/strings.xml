@@ -24,4 +24,13 @@
     <!--Buttons Names-->
     <string name="btn_study">STUDY</string>
     <string name="btn_review">Review Box 5</string>
+
+    <!--Study Fragment-->
+    <string name="answer_card">Press here to view answer.</string>
+
+    <!--Question Details-->
+    <string name="details_question">QUESTION: </string>
+    <string name="details_answer">ANSWER: </string>
+    <string name="details_box">BOX: </string>
+    <string name="details_counter">Counter:</string>
 </resources>

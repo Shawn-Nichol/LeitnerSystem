@@ -44,10 +44,7 @@ public class QuestionNewQuestion extends Fragment {
         // ButterKnife
         ButterKnife.bind(this, view);
 
-
-
         mQuestionViewModel = ViewModelProviders.of(getActivity()).get(QuestionViewModel.class);
-
 
         mQuestionViewModel.getCurrentCategory().observe(getActivity(), new Observer<String>() {
             @Override
@@ -69,7 +66,7 @@ public class QuestionNewQuestion extends Fragment {
                        } else if (TextUtils.isEmpty(tvAnswer.getText())) {
                            Toast.makeText(getActivity(), "Answer left blank", Toast.LENGTH_SHORT).show();
                        } else {
-                            Question question = new Question(submitQuestion, submitAnswer, s,1, 1);
+                            Question question = new Question(submitQuestion, submitAnswer, s,1, 0);
                             mQuestionViewModel.insert(question);
 
                             // Pop the last fragment transition from the manager's fragment back stack

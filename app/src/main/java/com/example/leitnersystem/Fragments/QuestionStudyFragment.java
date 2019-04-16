@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.leitnersystem.Activities.QuestionActivity;
+
 import com.example.leitnersystem.R;
 import com.example.leitnersystem.RoomQuestion.Question;
 import com.example.leitnersystem.RoomQuestion.QuestionViewModel;
@@ -41,7 +41,6 @@ public class QuestionStudyFragment extends Fragment {
 
     private int mCurrentQuestion;
 
-
     @BindView(R.id.tv_study_question)
     TextView tvStudyQuestion;
     @BindView(R.id.tv_study_answer)
@@ -65,43 +64,58 @@ public class QuestionStudyFragment extends Fragment {
         // View Model
         mQuestionViewModel = ViewModelProviders.of(getActivity()).get(QuestionViewModel.class);
 
+
         final String category = mQuestionViewModel.getTextText();
         Log.d(LOGTAG, "Shawn " + category);
         mQuestionViewModel.findCategory(category).observe(getActivity(), new Observer<List<Question>>() {
             @Override
             public void onChanged(@Nullable List<Question> questions) {
                 mSize = questions.size();
-                Log.d(LOGTAG, "Question " + mCurrentQuestion + "/" + mSize);
 
-                if (mCurrentQuestion > mSize) {
+                // When mCurrentQuestions is the same size as the list of question remove the option
+                // to ask for the next question.
+                Log.d(LOGTAG, "mCurrentQuestion = " + mCurrentQuestion + " mSize " + (mSize -1));
+                if ((mCurrentQuestion) > (mSize-1) || mSize == 0) {
                     btnCorrect.setVisibility(View.GONE);
-                    mId= -1;
-                } else {
+                    btnWrong.setVisibility(View.GONE);
+                    Toast.makeText(getActivity(), "No More questions", Toast.LENGTH_SHORT).show();
+                    mCurrentQuestion = 0;
 
+                } else {
+                    mCounter = questions.get(mCurrentQuestion).getCounter();
                     mId = questions.get(mCurrentQuestion).getId();
                     mQuestion = questions.get(mCurrentQuestion).getQuestion();
                     mAnswer = questions.get(mCurrentQuestion).getAnswer();
                     mCategory = questions.get(mCurrentQuestion).getCategory();
                     mBox = questions.get(mCurrentQuestion).getBox();
-                    mCounter = questions.get(mCurrentQuestion).getCounter();
+                    // Only asks questions if counter equals 0.
+                    if(mCounter == 0) {
+                        Log.d(LOGTAG, "else if, counter = 0");
+                        mQuestionViewModel.setSize(String.valueOf(mSize));
 
+                        tvStudyQuestion.setText(mQuestion);
 
-                    mQuestionViewModel.setSize(String.valueOf(mSize));
+                        Log.d(LOGTAG,
+                                "Question: " + (mCurrentQuestion + 1) + "/" + mSize +
+                                        " ID: " + String.valueOf(mId) +
+                                        " Question: " + mQuestion +
+                                        " Answer: " + mAnswer +
+                                        " Category: " + mCategory +
+                                        " Box: " + mBox +
+                                        " Counter: " + mCounter);
+                    } else {
 
+                        Log.d(LOGTAG, "Observer else else");
+                        Question question = new Question(mQuestion, mAnswer, mCategory, (mBox), (mCounter -1));
+                        question.setId(mId);
+                        mQuestionViewModel.updateQuestion(question);
 
-                    Log.d(LOGTAG,
-                            "Question: " + (mCurrentQuestion + 1) + "/" + mSize +
-                                    " ID: " + String.valueOf(mId) +
-                                    " Question: " + mQuestion +
-                                    " Answer: " + mAnswer +
-                                    " Category: " + mCategory +
-                                    " Box: " + mBox +
-                                    " Counter: " + mCounter);
+                        mCurrentQuestion++;
 
+                    }
                 }
             }
         });
-
 
         /**
          * User presses this button if they answer the question correctly
@@ -109,14 +123,45 @@ public class QuestionStudyFragment extends Fragment {
         btnCorrect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(LOGTAG, "btnCorrect");
+                int counter = 0 ;
+                int box = mBox + 1;
+
+                switch(mBox) {
+                    case 1:
+                        counter = 1;
+                        break;
+                    case 2:
+                        counter = 2;
+                        break;
+                    case 3:
+                        counter = 4;
+                        break;
+                    case 4:
+                        counter = 8;
+                        break;
+                    case 5:
+                        counter = -1;
+                        break;
+                    default:
+
+                }
+
+                Log.d(LOGTAG,
+                                " ID: " + String.valueOf(mId) +
+                                " Question: " + mQuestion +
+                                " Answer: " + mAnswer +
+                                " Category: " + mCategory +
+                                " Box: " + mBox +
+                                " Counter: " + mCounter);
 
 
 
-                    Question question = new Question(mQuestion, "asnwer tell", "scifi", (mBox + 1), mCounter * 2);
-                    question.setId(mId);
-                    mQuestionViewModel.updateQuestion(question);
-                    mCurrentQuestion++;
-
+                Question question = new Question(mQuestion, mAnswer, mCategory, (box), counter);
+                question.setId(mId);
+                mQuestionViewModel.updateQuestion(question);
+                tvStudyAnswer.setText(R.string.answer_card);
+                mCurrentQuestion++;
 
             }
         });
@@ -128,6 +173,21 @@ public class QuestionStudyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(LOGTAG, "btnWrong pressed");
+                int counter;
+
+                if(mCounter <= 0) {
+                    counter = 0;
+                } else {
+                    counter = mCounter - 1;
+                }
+
+
+
+                Question question = new Question(mQuestion, mAnswer, mCategory, 1, counter);
+                question.setId(mId);
+                mQuestionViewModel.updateQuestion(question);
+                tvStudyAnswer.setText(R.string.answer_card);
+                mCurrentQuestion++;
 
             }
         });
@@ -136,6 +196,7 @@ public class QuestionStudyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(LOGTAG, "answer Card pressed");
+                tvStudyAnswer.setText(mAnswer);
             }
         });
 
@@ -143,103 +204,4 @@ public class QuestionStudyFragment extends Fragment {
         return view;
     }
 
-//    private void QuestionLoad() {
-//
-//
-//
-//        mQuestionViewModel.getCurrentCategory().observe(getActivity(), new Observer<String>() {
-//
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                final String mCurrentCategory = String.valueOf(s);
-//                Log.d(LOGTAG, "Category " + mCurrentCategory);
-//
-//                mQuestionViewModel.findCategory(mCurrentCategory).observe(getActivity(), new Observer<List<Question>>() {
-//                    @Override
-//                    public void onChanged(@Nullable List<Question> questions) {
-//
-//
-//                        if (mCurrentQuestion < questions.size()) {
-//                            int eId = questions.get(mCurrentQuestion).getId();
-//                            String eQuestion = questions.get(mCurrentQuestion).getQuestion();
-//                            String eAnswer = questions.get(mCurrentQuestion).getAnswer();
-//                            String eCat = questions.get(mCurrentQuestion).getCategory();
-//                            int eBox = questions.get(mCurrentQuestion).getBox();
-//                            int eCounter = questions.get(mCurrentQuestion).getCounter();
-//
-//
-//                            Log.d(LOGTAG,
-//                                    "Question: " + (mCurrentQuestion + 1) + "/" + questions.size() +
-//                                            " ID: " + String.valueOf(eId) +
-//                                            " Question: " + eQuestion +
-//                                            " Answer: " + eAnswer +
-//                                            " Category: " + eCat +
-//                                            " Box: " + eBox +
-//                                            " Counter: " + eCounter);
-//
-//                            tvStudyQuestion.setText(eQuestion);
-//                            tvStudyAnswer.setText(eAnswer);
-//                        }
-//                    }
-//                });
-//            }
-//        });
-//    }
-
-
-//    private void QuestionInfo() {
-//        Log.d(LOGTAG, "QuestionInfo");
-//
-//        mQuestionViewModel.getCurrentCategory().observe(getActivity(), new Observer<String>() {
-//
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                final String mCurrentCategory = String.valueOf(s);
-//
-//                Log.d(LOGTAG, "Category " + mCurrentCategory);
-//
-//                mQuestionViewModel.findCategory(mCurrentCategory).observe(getActivity(), new Observer<List<Question>>() {
-//                    @Override
-//                    public void onChanged(@Nullable List<Question> questions) {
-//
-//
-//                        if(mCurrentQuestion < questions.size()) {
-//                            int eId = questions.get(mCurrentQuestion).getId();
-//                            String eQuestion = questions.get(mCurrentQuestion).getQuestion();
-//                            String eAnswer = questions.get(mCurrentQuestion).getAnswer();
-//                            String eCat = questions.get(mCurrentQuestion).getCategory();
-//                            int eBox = questions.get(mCurrentQuestion).getBox();
-//                            int eCounter = questions.get(mCurrentQuestion).getCounter();
-//
-//
-//                            Log.d(LOGTAG,
-//                                    "Question: " + (mCurrentQuestion  + 1) + "/" + questions.size() +
-//                                    " ID: " + String.valueOf(eId) +
-//                                    " Question: " +  eQuestion+
-//                                    " Answer: " + eAnswer +
-//                                    " Category: " + eCat +
-//                                    " Box: " + eBox  +
-//                                    " Counter: " + eCounter);
-//
-//                            tvStudyQuestion.setText(eQuestion);
-//                            tvStudyAnswer.setText(eAnswer);
-//
-//                            Question question = new Question(eQuestion, eAnswer, eCat, eBox, eCounter);
-//                            question.setId(eId);
-//
-//                            Log.d(LOGTAG, "Questions " + question);
-//
-//                            mQuestionViewModel.updateQuestion(question);
-//
-//
-//                        } else {
-//                            Log.d(LOGTAG, "No More questions");
-//                            Toast.makeText(getActivity(), "No More Questions", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//
-//            }
-//        });
-//    }
 }
