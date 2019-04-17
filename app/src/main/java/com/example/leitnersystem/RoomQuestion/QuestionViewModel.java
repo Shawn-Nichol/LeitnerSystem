@@ -40,6 +40,7 @@ public class QuestionViewModel extends AndroidViewModel {
     }
 
 
+
     public void setSize(String size){
         mSize = size;
     }
