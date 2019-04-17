@@ -49,4 +49,22 @@ public class QuestionActivity extends AppCompatActivity {
                 .add(R.id.activity_question_container, questionFragment)
                 .commit();
     }
+
+    @Override
+    public void onBackPressed(){
+
+        if(getSupportFragmentManager().findFragmentByTag("questionStudyResultsFragment") != null) {
+            Log.d(LOGTAG, "backButtonPressed if. Category = " + mCurrentCategory);
+
+            Intent backIntent = new Intent(this, QuestionActivity.class);
+            backIntent.putExtra("Category", mCurrentCategory);
+
+            startActivity(backIntent);
+            finish();
+
+        } else {
+            Log.d(LOGTAG, "backButtonPressed else");
+            super.onBackPressed();
+        }
+    }
 }

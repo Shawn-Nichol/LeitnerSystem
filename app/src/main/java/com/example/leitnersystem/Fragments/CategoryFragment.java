@@ -62,16 +62,12 @@ public class CategoryFragment extends Fragment {
         // Fragments need to supply a view root in order to bind ButterKnife.
         ButterKnife.bind(this, view);
 
-        // RecyclerView handler, specify the layout
-        RecyclerView recyclerView = view.findViewById(R.id.rv_category);
-
         // Adapter handler, specify the handler
         final CategoryAdapter adapter = new CategoryAdapter(getActivity());
 
-        // set adapter to RecyclerView
+        // RecyclerView handler
+        RecyclerView recyclerView = view.findViewById(R.id.rv_category);
         recyclerView.setAdapter(adapter);
-
-        // set the LayoutManager type for the recyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // Get new or existing ViewModel from the ViewModel provider.
@@ -83,7 +79,6 @@ public class CategoryFragment extends Fragment {
         mCategoryViewModel.getAllCategories().observe(getActivity(), new Observer<List<Category>>() {
             @Override
             public void onChanged(@Nullable final List<Category> categories) {
-
                 adapter.setTitles(categories);
             }
         });
@@ -120,13 +115,9 @@ public class CategoryFragment extends Fragment {
             // Create detailsFragment object
             CategoryNewTitleFragment newTitleFragment = new CategoryNewTitleFragment();
 
-            // FragmentManager handle
+            // FragmentManager/FragmentTransaction
             FragmentManager fragmentManager = getFragmentManager();
-
-            // FragmentTransaction handle
             FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
-
-            // Start fragment transaction.
             fragmentTransaction
                     .replace(R.id.activity_main_container, newTitleFragment)
                     .addToBackStack(null)

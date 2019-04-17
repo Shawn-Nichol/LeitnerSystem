@@ -60,7 +60,7 @@ public class QuestionFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // Fragment Manager Setup
-        FragmentManager fragmentManager = getFragmentManager();
+        final FragmentManager fragmentManager = getFragmentManager();
         final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         // Floating action Button
@@ -100,11 +100,6 @@ public class QuestionFragment extends Fragment {
 
         }).attachToRecyclerView(recyclerView);
 
-
-
-
-
-
         /**
          * Launches study fragment
          */
@@ -114,47 +109,9 @@ public class QuestionFragment extends Fragment {
                 Log.d(LOGTAG, "btnStudy  pressed");
                 QuestionStudyFragment questionStudyFragment = new QuestionStudyFragment();
 
-
-//                mQuestionViewModel.
-                //mQuestionViewModel.getCurrentCategory().observe(getActivity(), new Observer<String>() {
-//                mQuestionViewModel.findCategory(mCategory).observe(getActivity(), new Observer<List<Question>>() {
-//                    @Override
-//                    public void onChanged(@Nullable List<Question> questions) {
-//                        int size = questions.size();
-//                        int id;
-//                        String mQuestion;
-//                        String answer;
-//                        String category;
-//                        int box;
-//                        int counter;
-//
-//                        Log.d(LOGTAG, "btnStudy question count " + size);
-//
-//
-//
-//                        for(int i = 0; i < size; i++) {
-//
-//                            id = questions.get(i).getId();
-//                            mQuestion = questions.get(i).getQuestion();
-//                            answer = questions.get(i).getAnswer();
-//                            category = questions.get(i).getCategory();
-//                            box = questions.get(i).getBox();
-//                            counter = questions.get(i).getCounter();
-//
-//                            Question question = new Question(mQuestion, answer, category, box, (counter -1));
-//                            question.setId(id);
-//
-//                            mQuestionViewModel.updateQuestion(question);
-//                            mQuestionViewModel.findCategory(mCategory).removeObserver(questions);
-//                        }
-//                    }
-//                });
-
-
-
                 fragmentTransaction
-                        .replace(R.id.activity_question_container, questionStudyFragment)
-                        .addToBackStack(null)
+                        .replace(R.id.activity_question_container, questionStudyFragment, "questionStudyFragment")
+                        .addToBackStack("questionFragment_questionStudyFragment_TAG")
                         .commit();
             }
         });

@@ -1,11 +1,12 @@
 package com.example.leitnersystem.Fragments;
 
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,8 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import com.example.leitnersystem.R;
 import com.example.leitnersystem.RoomQuestion.Question;
@@ -36,6 +35,7 @@ public class QuestionStudyFragment extends Fragment {
     private int mBox;
     private int mCounter;
     private int mSize;
+    private int mUpdateDatabase;
 
     private QuestionViewModel mQuestionViewModel;
 
@@ -51,12 +51,16 @@ public class QuestionStudyFragment extends Fragment {
     Button btnWrong;
     @BindView(R.id.card_answer)
     CardView cardAnswer;
+    @BindView(R.id.card_question)
+    CardView cardQuestion;
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle onSavedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_question_study_layout, viewGroup, false);
+        final View view = inflater.inflate(R.layout.fragment_question_study_layout, viewGroup, false);
         Log.d(LOGTAG, "onCreateView");
 
         mCurrentQuestion = 0;
+        mUpdateDatabase = 0;
 
         //ButterKnife
         ButterKnife.bind(this, view);
@@ -64,22 +68,31 @@ public class QuestionStudyFragment extends Fragment {
         // View Model
         mQuestionViewModel = ViewModelProviders.of(getActivity()).get(QuestionViewModel.class);
 
+        // Fragment Manager
+        final FragmentManager fragmentManager = getFragmentManager();
+        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        final String category = mQuestionViewModel.getTextText();
-        Log.d(LOGTAG, "Shawn " + category);
-        mQuestionViewModel.findCategory(category).observe(getActivity(), new Observer<List<Question>>() {
+
+        final String savedCategory = mQuestionViewModel.getTextText();
+        Log.d(LOGTAG, "Saved Category " + savedCategory);
+        mQuestionViewModel.findCategory(savedCategory).observe(getActivity(), new Observer<List<Question>>() {
             @Override
             public void onChanged(@Nullable List<Question> questions) {
                 mSize = questions.size();
 
                 // When mCurrentQuestions is the same size as the list of question remove the option
                 // to ask for the next question.
-                Log.d(LOGTAG, "mCurrentQuestion = " + mCurrentQuestion + " mSize " + (mSize -1));
-                if ((mCurrentQuestion) > (mSize-1) || mSize == 0) {
-                    btnCorrect.setVisibility(View.GONE);
-                    btnWrong.setVisibility(View.GONE);
-                    Toast.makeText(getActivity(), "No More questions", Toast.LENGTH_SHORT).show();
-                    mCurrentQuestion = 0;
+                Log.d(LOGTAG, "mCurrentQuestion = " + mCurrentQuestion + " mSize " + (mSize - 1));
+
+                if ((mCurrentQuestion) > (mSize - 1) || mSize == 0) {
+                    Log.d(LOGTAG, "No more questions");
+
+                    QuestionStudyResultsFragment questionStudyResultsFragment = new QuestionStudyResultsFragment();
+
+                    fragmentTransaction
+                            .replace(R.id.activity_question_container, questionStudyResultsFragment, "questionStudyResultsFragment")
+                            .commit();
+
 
                 } else {
                     mCounter = questions.get(mCurrentQuestion).getCounter();
@@ -89,14 +102,13 @@ public class QuestionStudyFragment extends Fragment {
                     mCategory = questions.get(mCurrentQuestion).getCategory();
                     mBox = questions.get(mCurrentQuestion).getBox();
                     // Only asks questions if counter equals 0.
-                    if(mCounter == 0) {
-                        Log.d(LOGTAG, "else if, counter = 0");
+                    if (mCounter == 0) {
                         mQuestionViewModel.setSize(String.valueOf(mSize));
 
                         tvStudyQuestion.setText(mQuestion);
 
                         Log.d(LOGTAG,
-                                "Question: " + (mCurrentQuestion + 1) + "/" + mSize +
+                                "Question observer: " + (mCurrentQuestion + 1) + "/" + mSize +
                                         " ID: " + String.valueOf(mId) +
                                         " Question: " + mQuestion +
                                         " Answer: " + mAnswer +
@@ -105,8 +117,8 @@ public class QuestionStudyFragment extends Fragment {
                                         " Counter: " + mCounter);
                     } else {
 
-                        Log.d(LOGTAG, "Observer else else");
-                        Question question = new Question(mQuestion, mAnswer, mCategory, (mBox), (mCounter -1));
+                        Log.d(LOGTAG, "Question " + mQuestion + " Skipped. Counter = " + mCounter);
+                        Question question = new Question(mQuestion, mAnswer, mCategory, (mBox), (mCounter - 1));
                         question.setId(mId);
                         mQuestionViewModel.updateQuestion(question);
 
@@ -123,11 +135,11 @@ public class QuestionStudyFragment extends Fragment {
         btnCorrect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(LOGTAG, "btnCorrect");
-                int counter = 0 ;
+
+                int counter = 0;
                 int box = mBox + 1;
 
-                switch(mBox) {
+                switch (box) {
                     case 1:
                         counter = 1;
                         break;
@@ -147,17 +159,16 @@ public class QuestionStudyFragment extends Fragment {
 
                 }
 
-                Log.d(LOGTAG,
-                                " ID: " + String.valueOf(mId) +
-                                " Question: " + mQuestion +
-                                " Answer: " + mAnswer +
-                                " Category: " + mCategory +
-                                " Box: " + mBox +
-                                " Counter: " + mCounter);
+                Log.d(LOGTAG, "Button correct " +
+                        " ID: " + String.valueOf(mId) +
+                        " Question: " + mQuestion +
+                        " Answer: " + mAnswer +
+                        " Category: " + mCategory +
+                        " Box: " + box +
+                        " Counter: " + counter);
 
 
-
-                Question question = new Question(mQuestion, mAnswer, mCategory, (box), counter);
+                Question question = new Question(mQuestion, mAnswer, mCategory, box, counter);
                 question.setId(mId);
                 mQuestionViewModel.updateQuestion(question);
                 tvStudyAnswer.setText(R.string.answer_card);
@@ -175,14 +186,21 @@ public class QuestionStudyFragment extends Fragment {
                 Log.d(LOGTAG, "btnWrong pressed");
                 int counter;
 
-                if(mCounter <= 0) {
+                if (mCounter <= 0) {
                     counter = 0;
+                } else if (mCounter < 0) {
+                    counter = mCounter;
                 } else {
                     counter = mCounter - 1;
                 }
 
-
-
+                Log.d(LOGTAG, "Button Wrong" +
+                        " ID: " + String.valueOf(mId) +
+                        " Question: " + mQuestion +
+                        " Answer: " + mAnswer +
+                        " Category: " + mCategory +
+                        " Box: " + 1 +
+                        " Counter: " + counter);
                 Question question = new Question(mQuestion, mAnswer, mCategory, 1, counter);
                 question.setId(mId);
                 mQuestionViewModel.updateQuestion(question);

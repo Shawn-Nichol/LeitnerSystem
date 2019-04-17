@@ -1,12 +1,8 @@
 package com.example.leitnersystem.Adapters;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -17,9 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.leitnersystem.Fragments.QuestionDetailFragment;
-import com.example.leitnersystem.Fragments.QuestionFragment;
 import com.example.leitnersystem.R;
-import com.example.leitnersystem.RoomCategory.Category;
 import com.example.leitnersystem.RoomQuestion.Question;
 import com.example.leitnersystem.RoomQuestion.QuestionViewModel;
 

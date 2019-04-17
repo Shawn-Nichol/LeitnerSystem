@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.example.leitnersystem.Activities.QuestionActivity;
 import com.example.leitnersystem.RoomCategory.Category;
 import com.example.leitnersystem.R;
-import com.example.leitnersystem.RoomQuestion.Question;
 
 import java.util.Collections;
 import java.util.List;

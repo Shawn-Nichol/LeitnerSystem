@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.text.Layout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,9 +39,9 @@ public class CategoryNewTitleFragment extends Fragment {
 
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d(LOGTAG, "onCreateView");
-
         View view = inflater.inflate(R.layout.fragment_category_new_title_layout, container, false);
+
+        Log.d(LOGTAG, "onCreateView");
 
         // ButterKnife
         ButterKnife.bind(this, view);
@@ -71,13 +70,10 @@ public class CategoryNewTitleFragment extends Fragment {
                  */
                 // Create detailsFragment object
                 CategoryFragment categoryFragment = new CategoryFragment();
+
                 // FragmentManager handle
                 FragmentManager fragmentManager = getFragmentManager();
-
-                // FragmentTransaction handle
                 FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
-
-                // Start fragment transaction.
                 fragmentTransaction
                         .replace(R.id.activity_main_container, categoryFragment)
                         .addToBackStack(null)
