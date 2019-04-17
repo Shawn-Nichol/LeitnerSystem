@@ -39,6 +39,7 @@ public class QuestionViewModel extends AndroidViewModel {
         currentCategory.setValue(input);
     }
 
+
     public void setSize(String size){
         mSize = size;
     }
