@@ -18,22 +18,23 @@ import com.example.leitnersystem.RoomQuestion.Question;
 import com.example.leitnersystem.RoomQuestion.QuestionViewModel;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class QuestionDetailFragment extends Fragment {
 
-    String LOGTAG = "QuestionDetailFragment";
+    private final String LOGTAG = "QuestionDetailFragment";
 
-    private QuestionViewModel mQuestionViewModel;
+
 
     @BindView(R.id.tv_question_details_question) TextView tvQuestion;
     @BindView(R.id.tv_question_details_answer) TextView tvAnswer;
     @BindView(R.id.tv_question_details_box) TextView tvBox;
     @BindView(R.id.tv_question_details_counter) TextView tvCounter;
 
-    int mQuestionNumber;
+    private int mQuestionNumber;
 
     private int mId;
     private String mQuestion;
@@ -52,11 +53,11 @@ public class QuestionDetailFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         // ViewModel
-        mQuestionViewModel = ViewModelProviders.of(getActivity()).get(QuestionViewModel.class);
+        QuestionViewModel mQuestionViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(QuestionViewModel.class);
 
         // Question number
         Bundle bundle = getArguments();
-        mQuestionNumber = bundle.getInt("Key_QuestionNumber");
+        mQuestionNumber = Objects.requireNonNull(bundle).getInt("Key_QuestionNumber");
         Log.d(LOGTAG, "QuestionNumber " + mQuestionNumber);
 
         final String category = mQuestionViewModel.getTextText();
@@ -67,7 +68,7 @@ public class QuestionDetailFragment extends Fragment {
         mQuestionViewModel.findCategory(category).observe(getActivity(), new Observer<List<Question>>() {
             @Override
             public void onChanged(@Nullable List<Question> questions) {
-                mId = questions.get(mQuestionNumber).getId();
+                mId = Objects.requireNonNull(questions).get(mQuestionNumber).getId();
                 mQuestion = questions.get(mQuestionNumber).getQuestion();
                 mAnswer = questions.get(mQuestionNumber).getAnswer();
                 mBox = questions.get(mQuestionNumber).getBox();

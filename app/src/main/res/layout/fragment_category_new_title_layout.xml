@@ -11,19 +11,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="New Category"
+        android:hint="@string/new_category_title_hint"
         android:inputType="textAutoComplete"
         android:padding="6dp"
         android:textSize="18sp"
         app:layout_constraintTop_toTopOf="@+id/guideline"
-        tools:layout_editor_absoluteX="16dp" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:ignore="Autofill" />
 
     <Button
         android:id="@+id/btn_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Save"
+        android:text="@string/btn_save"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         tools:layout_editor_absoluteX="65dp" />
 

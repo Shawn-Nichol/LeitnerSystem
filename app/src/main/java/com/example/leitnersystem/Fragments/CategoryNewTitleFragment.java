@@ -20,12 +20,14 @@ import com.example.leitnersystem.R;
 import com.example.leitnersystem.RoomCategory.Category;
 import com.example.leitnersystem.RoomCategory.CategoryViewModel;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class CategoryNewTitleFragment extends Fragment {
 
-    private String LOGTAG = "CategoryNewTitleFragment";
+    private final String LOGTAG = "CategoryNewTitleFragment";
 
     private CategoryViewModel mCategoryViewModel;
 
@@ -47,15 +49,15 @@ public class CategoryNewTitleFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         // Get new or existing ViewModel from the ViewModel provider.
-        mCategoryViewModel = ViewModelProviders.of(getActivity()).get(CategoryViewModel.class);
+        mCategoryViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(CategoryViewModel.class);
 
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Log.d(LOGTAG, "saveButton pressed");
-                String newEntery = String.valueOf(mEditTitleView.getText());
+                String newEntry = String.valueOf(mEditTitleView.getText());
 
-                Log.d(LOGTAG, "New db category = " + newEntery);
+                Log.d(LOGTAG, "New db category = " + newEntry);
                 if(TextUtils.isEmpty(mEditTitleView.getText())) {
                     Toast.makeText(getActivity(), "No New Entry saved", Toast.LENGTH_SHORT).show();
                 } else {
@@ -65,15 +67,14 @@ public class CategoryNewTitleFragment extends Fragment {
                     mCategoryViewModel.insert(category);
                 }
 
-                /**
-                 * ReLaunch CategoryFragment.
-                 */
+
+                // ReLaunch CategoryFragment.
                 // Create detailsFragment object
                 CategoryFragment categoryFragment = new CategoryFragment();
 
                 // FragmentManager handle
                 FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
+                FragmentTransaction fragmentTransaction= Objects.requireNonNull(fragmentManager).beginTransaction();
                 fragmentTransaction
                         .replace(R.id.activity_main_container, categoryFragment)
                         .addToBackStack(null)

@@ -42,13 +42,12 @@ public abstract class CategoryRoomDatabase extends RoomDatabase {
      *
      * populate the db only when the db is created the 1st time, Override RoomDatabase.CallBack()#onCreate
      */
-    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
+    private static final RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
 
-            // TODO: test data for db, remove when done
-          //  new PopulateDbAsync(INSTANCE).execute();
+            new PopulateDbAsync(INSTANCE).execute();
         }
     };
 

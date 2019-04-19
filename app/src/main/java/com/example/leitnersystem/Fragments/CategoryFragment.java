@@ -25,30 +25,31 @@ import com.example.leitnersystem.R;
 import com.example.leitnersystem.RoomQuestion.QuestionViewModel;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.ButterKnife;
 
 
 public class CategoryFragment extends Fragment {
 
-    String LOGTAG = "CategoryFragment";
+    private final String LOGTAG = "CategoryFragment";
 
     private CategoryViewModel mCategoryViewModel;
     private QuestionViewModel mQuestionViewModel;
 
     // Fragment requires empty constructor.
-        public CategoryFragment() {
+    public CategoryFragment() {
     }
 
 
     /**
      * Inflates the fragment_category_layout file
      *
-     * @param inflater To return a layout from onCreateView, you can inflate if from a layout resource
-     *                 defined in XML.
-     * @param container Is the parent ViewGroup in which the fragment is Layout is inserted.
+     * @param inflater           To return a layout from onCreateView, you can inflate if from a layout resource
+     *                           defined in XML.
+     * @param container          Is the parent ViewGroup in which the fragment is Layout is inserted.
      * @param savedInstanceState is a bundle that provides data about the previous instance of the
-     *                          fragment.
+     *                           fragment.
      * @return a View that is the root of the fragments layout
      */
     @Nullable
@@ -71,7 +72,7 @@ public class CategoryFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // Get new or existing ViewModel from the ViewModel provider.
-        mCategoryViewModel = ViewModelProviders.of(getActivity()).get(CategoryViewModel.class);
+        mCategoryViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(CategoryViewModel.class);
         mQuestionViewModel = ViewModelProviders.of(getActivity()).get(QuestionViewModel.class);
 
         // Observer the LiveData, return by get AlphabetizedCategories.
@@ -83,9 +84,8 @@ public class CategoryFragment extends Fragment {
             }
         });
 
-        /**
-         * Used to delete Categories and all the questions in them.
-         */
+
+        // Used to delete Categories and all the questions in them.
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -104,28 +104,66 @@ public class CategoryFragment extends Fragment {
         // FAB Handler
         FloatingActionButton fab = view.findViewById(R.id.fab_button);
 
-        /**
-         * setOnClickListener, will launch new window to enter title for a new Category.
-         */
+
+        // setOnClickListener, will launch new window to enter title for a new Category.
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            Log.d(LOGTAG, "FAB pressed");
+                Log.d(LOGTAG, "FAB pressed");
 
-            // Create detailsFragment object
-            CategoryNewTitleFragment newTitleFragment = new CategoryNewTitleFragment();
+                // Create detailsFragment object
+                CategoryNewTitleFragment newTitleFragment = new CategoryNewTitleFragment();
 
-            // FragmentManager/FragmentTransaction
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
-            fragmentTransaction
-                    .replace(R.id.activity_main_container, newTitleFragment)
-                    .addToBackStack(null)
-                    .commit();
+                // FragmentManager/FragmentTransaction
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = Objects.requireNonNull(fragmentManager).beginTransaction();
+                fragmentTransaction
+                        .replace(R.id.activity_main_container, newTitleFragment)
+                        .addToBackStack(null)
+                        .commit();
 
             }
         });
 
+
+//        CategoryRepository mRepository = new CategoryRepository();
+//
+//
+//        void LiveData<List<Category>> getAllCategories(){
+//            return mAllCategoies;
+//        }
+//
+//        Log.d(LOGTAG, )
+
         return view;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

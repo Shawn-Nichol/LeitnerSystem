@@ -12,8 +12,8 @@ import java.util.List;
 public class CategoryViewModel extends AndroidViewModel {
 
     // Member variable for DAO and the list of titles
-    private CategoryRepository mRepository;
-    private LiveData<List<Category>> mAllCategories;
+    private final CategoryRepository mRepository;
+    private final LiveData<List<Category>> mAllCategories;
 
     // Constructor gets a reference to the repository and a list of Titles from the repository.
     public CategoryViewModel(Application application) {

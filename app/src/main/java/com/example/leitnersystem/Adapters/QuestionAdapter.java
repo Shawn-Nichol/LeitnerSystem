@@ -15,14 +15,14 @@ import android.widget.TextView;
 import com.example.leitnersystem.Fragments.QuestionDetailFragment;
 import com.example.leitnersystem.R;
 import com.example.leitnersystem.RoomQuestion.Question;
-import com.example.leitnersystem.RoomQuestion.QuestionViewModel;
+
 
 import java.util.Collections;
 import java.util.List;
 
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder> {
 
-    String LOGTAG = "QuestionAdapter";
+    private final String LOGTAG = "QuestionAdapter";
 
     /**
      * QuestionViewHolder, describes an item view and the metadata about its place in the RecyclerView.
@@ -41,7 +41,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
     private final LayoutInflater mInflater;
     private List<Question> mQuestion = Collections.emptyList();
-    private QuestionViewModel mQuestionViewModel;
+//    private QuestionViewModel mQuestionViewModel;
 
     public QuestionAdapter(Context context) {
         this.mInflater = LayoutInflater.from(context);
@@ -67,19 +67,20 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull QuestionViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull QuestionViewHolder holder, int position) {
         final Question current = mQuestion.get(position);
         holder.myTextView.setText(current.getQuestion());
+        final int mPosition = holder.getAdapterPosition();
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
 
 
             @Override
             public void onClick(View v) {
-                Log.d(LOGTAG, "RecyclerView Question number selected " + (position + 1));
+                Log.d(LOGTAG, "RecyclerView Question number selected " + (mPosition + 1));
 
                 Bundle arguments = new Bundle();
-                arguments.putInt("Key_QuestionNumber", position);
+                arguments.putInt("Key_QuestionNumber", mPosition);
 
                 QuestionDetailFragment questionDetailFragment = new QuestionDetailFragment();
 

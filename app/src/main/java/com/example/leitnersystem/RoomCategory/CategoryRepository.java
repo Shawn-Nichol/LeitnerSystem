@@ -6,11 +6,12 @@ import android.os.AsyncTask;
 
 import java.util.List;
 
+@SuppressWarnings("WeakerAccess")
 public class CategoryRepository {
 
     // Member variables for the DAO and the list of words
-    private CategoryDao mCategoryDao;
-    private LiveData<List<Category>> mAllTitles;
+    private final CategoryDao mCategoryDao;
+    private final LiveData<List<Category>> mAllTitles;
 
     // Constructor
     CategoryRepository(Application application) {
@@ -35,7 +36,7 @@ public class CategoryRepository {
 
     // Call on a non UI thread.
     private static class insertAsyncTask extends AsyncTask<Category, Void, Void> {
-        private CategoryDao mAsyncTaskDao;
+        private final CategoryDao mAsyncTaskDao;
 
         // Constructor
         insertAsyncTask(CategoryDao dao) {
@@ -50,7 +51,7 @@ public class CategoryRepository {
     }
 
     private static class DeleteAsyncTask extends AsyncTask<Category, Void, Void> {
-        private CategoryDao mAsyncTaskDao;
+        private final CategoryDao mAsyncTaskDao;
 
         // Constructor
         DeleteAsyncTask(CategoryDao dao) {

@@ -14,15 +14,17 @@ import com.example.leitnersystem.RoomQuestion.QuestionViewModel;
 
 public class QuestionActivity extends AppCompatActivity {
 
-    String LOGTAG = "QuestionActivity";
-    String mCurrentCategory;
+    private final String LOGTAG = "QuestionActivity";
+    private String mCurrentCategory;
 
-    private QuestionViewModel mQuestionViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
+
+
 
         Intent mainIntent = getIntent();
         mCurrentCategory = mainIntent.getStringExtra("Category");
@@ -31,7 +33,7 @@ public class QuestionActivity extends AppCompatActivity {
         Log.d(LOGTAG, "mCurrentCategory = " + mCurrentCategory);
 
         // Get new or existing ViewModel from the ViewModel provider
-        mQuestionViewModel = ViewModelProviders.of(this).get(QuestionViewModel.class);
+        QuestionViewModel  mQuestionViewModel = ViewModelProviders.of(this).get(QuestionViewModel.class);
         mQuestionViewModel.setText(mCurrentCategory);
         mQuestionViewModel.setTextText(mCurrentCategory);
 

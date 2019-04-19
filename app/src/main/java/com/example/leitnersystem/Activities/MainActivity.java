@@ -11,12 +11,15 @@ import com.example.leitnersystem.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    String LOGTAG = "MainActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+       final String LOGTAG = "MainActivity";
+
         Log.d(LOGTAG, "MainActivity");
         //Only create new fragment when there is no previously saved state
         if(savedInstanceState == null) {

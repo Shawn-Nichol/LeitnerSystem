@@ -8,19 +8,20 @@ import android.util.Log;
 
 import java.util.List;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class QuestionViewModel extends AndroidViewModel {
 
-    private String LOGTAG = "QuestionViewModel";
+    private final String LOGTAG = "QuestionViewModel";
 
-    private QuestionRepository mRepository;
+    private final QuestionRepository mRepository;
 
-    private LiveData<List<Question>> allQuestions;
+    private final LiveData<List<Question>> allQuestions;
 
     private String mCategory;
     private String mSize;
 
     // Holds current Category for communication between fragments.
-    private MutableLiveData<String> currentCategory = new MutableLiveData<>();
+    private final MutableLiveData<String> currentCategory = new MutableLiveData<>();
 
     public QuestionViewModel(Application application) {
         super(application);

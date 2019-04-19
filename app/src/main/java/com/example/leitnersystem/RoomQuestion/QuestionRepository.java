@@ -6,10 +6,11 @@ import android.os.AsyncTask;
 
 import java.util.List;
 
+@SuppressWarnings("WeakerAccess")
 public class QuestionRepository {
 
-    private QuestionDao questionDao;
-    private LiveData<List<Question>> allQuestions;
+    private final QuestionDao questionDao;
+    private final LiveData<List<Question>> allQuestions;
 
     public void insert(Question category) {
         new InsertAsyncTask(questionDao).execute(category);
@@ -45,7 +46,7 @@ public class QuestionRepository {
 
 
     private static class InsertAsyncTask extends AsyncTask<Question, Void, Void> {
-        private QuestionDao mAsyncTaskDao;
+        private final QuestionDao mAsyncTaskDao;
 
         InsertAsyncTask(QuestionDao dao) {
             mAsyncTaskDao = dao;
@@ -59,7 +60,7 @@ public class QuestionRepository {
     }
 
     private static class DeleteAsyncTask extends AsyncTask<Question, Void, Void> {
-        private QuestionDao mAsyncTaskDao;
+        private final QuestionDao mAsyncTaskDao;
 
         DeleteAsyncTask(QuestionDao dao) {
 
@@ -73,7 +74,7 @@ public class QuestionRepository {
     }
 
     private static class DeleteAllAsyncTask extends AsyncTask<Void, Void, Void> {
-        private QuestionDao mAsyncTaskDao;
+        private final QuestionDao mAsyncTaskDao;
 
         DeleteAllAsyncTask(QuestionDao dao) {
 
@@ -87,7 +88,7 @@ public class QuestionRepository {
     }
 
     private static class UpdateAsyncTask extends AsyncTask<Question, Void, Void> {
-        private QuestionDao mAsyncTaskDao;
+        private final QuestionDao mAsyncTaskDao;
 
         UpdateAsyncTask(QuestionDao dao) {
 

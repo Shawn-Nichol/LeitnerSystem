@@ -25,18 +25,20 @@ import com.example.leitnersystem.RoomQuestion.Question;
 import com.example.leitnersystem.RoomQuestion.QuestionViewModel;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class QuestionFragment extends Fragment {
 
-    String LOGTAG = "QuestionFragment";
+    private final String LOGTAG = "QuestionFragment";
 
     private QuestionViewModel mQuestionViewModel;
     private String mCategory;
 
-    @BindView(R.id.btn_study) Button btnStudy;
+    @BindView(R.id.btn_study)
+    Button btnStudy;
 
     // Fragment requires empty constructor.
     public QuestionFragment() {
@@ -54,20 +56,20 @@ public class QuestionFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         // RecyclerView setup
-        RecyclerView recyclerView = view .findViewById(R.id.rv_question);
+        RecyclerView recyclerView = view.findViewById(R.id.rv_question);
         final QuestionAdapter adapter = new QuestionAdapter(getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // Fragment Manager Setup
         final FragmentManager fragmentManager = getFragmentManager();
-        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        final FragmentTransaction fragmentTransaction = Objects.requireNonNull(fragmentManager).beginTransaction();
 
         // Floating action Button
         final FloatingActionButton fab = view.findViewById(R.id.fab_button);
 
         // Get new or existing ViewModel from the View Model provider
-        mQuestionViewModel = ViewModelProviders.of(getActivity()).get(QuestionViewModel.class);
+        mQuestionViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(QuestionViewModel.class);
         mCategory = mQuestionViewModel.getTextText();
 
         mQuestionViewModel.findCategory(mCategory).observe(getActivity(), new Observer<List<Question>>() {
@@ -81,9 +83,7 @@ public class QuestionFragment extends Fragment {
         });
 
 
-        /**
-         * Used to delete Question by swiping to the left or right.
-         */
+        //  Used to delete Question by swiping to the left or right.
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -100,9 +100,8 @@ public class QuestionFragment extends Fragment {
 
         }).attachToRecyclerView(recyclerView);
 
-        /**
-         * Launches study fragment
-         */
+
+        // Launches study fragment
         btnStudy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,10 +116,8 @@ public class QuestionFragment extends Fragment {
         });
 
 
-        /**
-         * FAB will launch QuestionNewQuestion fragment and allow the user to enter a question.
-         */
-        fab.setOnClickListener(new View.OnClickListener(){
+        // FAB will launch QuestionNewQuestion fragment and allow the user to enter a question.
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(LOGTAG, "FAB button press");
@@ -134,6 +131,6 @@ public class QuestionFragment extends Fragment {
                         .commit();
             }
         });
-       return view;
+        return view;
     }
 }

@@ -21,6 +21,22 @@
         <item name="android:layout_margin">@dimen/card_layout_margin</item>
     </style>
 
+    <!--App Widget section-->
+    <style name="AppWidgetSection" parent="@android:style/Widget">
+        <item name="android:padding">8dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
 
+    <!--App Widget Title-->
+    <style name="AppWidgetTitle" parent="AppWidgetText">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppWidgetText" parent="Base.TextAppearance.AppCompat.Subhead">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
 
 </resources>

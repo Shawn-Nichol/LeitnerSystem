@@ -3,6 +3,7 @@ package com.example.leitnersystem.Fragments;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,13 +21,14 @@ import com.example.leitnersystem.RoomQuestion.Question;
 import com.example.leitnersystem.RoomQuestion.QuestionViewModel;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class QuestionStudyFragment extends Fragment {
 
-    private String LOGTAG = "QuestionStudyFragment";
+    private final String LOGTAG = "QuestionStudyFragment";
 
     private int mId;
     private String mQuestion;
@@ -35,7 +37,7 @@ public class QuestionStudyFragment extends Fragment {
     private int mBox;
     private int mCounter;
     private int mSize;
-    private int mUpdateDatabase;
+
 
     private QuestionViewModel mQuestionViewModel;
 
@@ -55,22 +57,22 @@ public class QuestionStudyFragment extends Fragment {
     CardView cardQuestion;
 
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle onSavedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup viewGroup, Bundle onSavedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_question_study_layout, viewGroup, false);
         Log.d(LOGTAG, "onCreateView");
 
         mCurrentQuestion = 0;
-        mUpdateDatabase = 0;
+
 
         //ButterKnife
         ButterKnife.bind(this, view);
 
         // View Model
-        mQuestionViewModel = ViewModelProviders.of(getActivity()).get(QuestionViewModel.class);
+        mQuestionViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(QuestionViewModel.class);
 
         // Fragment Manager
         final FragmentManager fragmentManager = getFragmentManager();
-        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        final FragmentTransaction fragmentTransaction = Objects.requireNonNull(fragmentManager).beginTransaction();
 
 
         final String savedCategory = mQuestionViewModel.getTextText();
@@ -78,7 +80,7 @@ public class QuestionStudyFragment extends Fragment {
         mQuestionViewModel.findCategory(savedCategory).observe(getActivity(), new Observer<List<Question>>() {
             @Override
             public void onChanged(@Nullable List<Question> questions) {
-                mSize = questions.size();
+                mSize = Objects.requireNonNull(questions).size();
 
                 // When mCurrentQuestions is the same size as the list of question remove the option
                 // to ask for the next question.
@@ -129,9 +131,8 @@ public class QuestionStudyFragment extends Fragment {
             }
         });
 
-        /**
-         * User presses this button if they answer the question correctly
-         */
+
+        // User presses this button if they answer the question correctly
         btnCorrect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -177,9 +178,9 @@ public class QuestionStudyFragment extends Fragment {
             }
         });
 
-        /**
-         * User presses this button if they answer question wrong.
-         */
+
+        //  User presses this button if they answer question wrong.
+
         btnWrong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

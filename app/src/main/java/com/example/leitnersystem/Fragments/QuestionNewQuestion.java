@@ -19,12 +19,14 @@ import com.example.leitnersystem.R;
 import com.example.leitnersystem.RoomQuestion.Question;
 import com.example.leitnersystem.RoomQuestion.QuestionViewModel;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class QuestionNewQuestion extends Fragment {
 
-    String LOGTAG = "QuestionNewQuestion";
+    private final String LOGTAG = "QuestionNewQuestion";
     @BindView (R.id.btn_question_save) Button btnSave;
     @BindView (R.id.tv_new_question) TextView tvQuestion;
     @BindView (R.id.tv_new_answer) TextView tvAnswer;
@@ -44,7 +46,7 @@ public class QuestionNewQuestion extends Fragment {
         // ButterKnife
         ButterKnife.bind(this, view);
 
-        mQuestionViewModel = ViewModelProviders.of(getActivity()).get(QuestionViewModel.class);
+        mQuestionViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(QuestionViewModel.class);
 
         mQuestionViewModel.getCurrentCategory().observe(getActivity(), new Observer<String>() {
             @Override
@@ -71,7 +73,7 @@ public class QuestionNewQuestion extends Fragment {
 
                             // Pop the last fragment transition from the manager's fragment back stack
                             // If there is nothing to pop the action will no be performed.
-                            getFragmentManager().popBackStack();
+                            Objects.requireNonNull(getFragmentManager()).popBackStack();
                        }
 
                     }

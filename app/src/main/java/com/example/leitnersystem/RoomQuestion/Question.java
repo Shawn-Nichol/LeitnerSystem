@@ -10,11 +10,11 @@ public class Question {
     @PrimaryKey(autoGenerate =  true)
     private int id;
 
-    private String question;
-    private String answer;
-    private String category;
-    private int box;
-    private int counter;
+    private final String question;
+    private final String answer;
+    private final String category;
+    private final int box;
+    private final int counter;
 
 
     public Question(String question, String answer, String category, int box, int counter) {

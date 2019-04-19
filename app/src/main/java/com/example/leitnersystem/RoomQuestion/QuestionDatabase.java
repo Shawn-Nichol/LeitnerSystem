@@ -37,7 +37,7 @@ public abstract class QuestionDatabase extends RoomDatabase {
 
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        private QuestionDao questionDao;
+        private final QuestionDao questionDao;
 
         public PopulateDbAsyncTask(QuestionDatabase db) {
             questionDao = db.questionDao();

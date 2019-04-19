@@ -39,6 +39,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         }
     }
 
+    private final String LOGTAG = "CategoryAdapter";
     private final LayoutInflater mInflater;
     private List<Category> mCategories = Collections.emptyList();
 
@@ -93,7 +94,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                 // Get Context returns the context the view is currently running in.
                 Intent myIntent = new Intent(v.getContext(), QuestionActivity.class);
                 // Category Category
-                Log.d("Shawn", "Category Category " + current.getTitle());
+                Log.d(LOGTAG, "Category Category " + current.getTitle());
                 myIntent.putExtra("Category", current.getTitle());
                 v.getContext().startActivity(myIntent);
             }

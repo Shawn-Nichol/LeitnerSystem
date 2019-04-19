@@ -1,36 +1,35 @@
 <resources>
     <string name="app_name">Leitner System</string>
 
-    <!--Box Number-->
-    <string name="box_1">Box 1</string>
-    <string name="box_2">Box 2</string>
-    <string name="box_3">Box 3</string>
-    <string name="box_4">Box 4</string>
-    <string name="box_5">Box 5</string>
 
-    <!--rv_row_stats text data-->
-    <string name="details_box_num">Box #</string>
-    <string name="details_days">Every Day</string>
-    <string name="details_fc">Flash Cards</string>
-    <string name="details_fc_completed">#/#</string>
-    <!--rv_row_stats-->
-    <string name="details_day1">Every day</string>
-    <string name="details_day2">Every 2 days</string>
-    <string name="details_day4">Every 4 days</string>
-    <string name="details_day8">Every 8 days</string>
-    <string name="details_day_error">error</string>
-    <string name="details_day_retired">Retired, only for review</string>
+    <!--rv_row_questions-->
+    <string name="rv_row_questions_question">Question</string>
+
 
     <!--Buttons Names-->
     <string name="btn_study">STUDY</string>
-    <string name="btn_review">Review Box 5</string>
+    <string name="btn_save">SAVE</string>
+    <string name="btn_correct">CORRECT</string>
+    <string name="btn_wrong">WRONG</string>
 
-    <!--Study Fragment-->
-    <string name="answer_card">Press here to view answer.</string>
+
 
     <!--Question Details-->
     <string name="details_question">QUESTION: </string>
     <string name="details_answer">ANSWER: </string>
     <string name="details_box">BOX: </string>
     <string name="details_counter">Counter:</string>
+
+    <!--New Category-->
+    <string name="new_category_title_hint">New Category</string>
+
+    <!--New Question-->
+    <string name="new_question_question_hint">Enter Question</string>
+    <string name="new_question_answer_hint">Enter Answer</string>
+
+    <!--Study -->
+    <string name="study_question">QUESTIONS</string>
+    <string name="study_question_no_more_questions">No More Questions</string>
+    <string name="answer_card">Press here to view answer.</string>
+
 </resources>
