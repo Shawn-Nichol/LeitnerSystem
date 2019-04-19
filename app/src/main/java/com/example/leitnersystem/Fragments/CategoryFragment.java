@@ -1,5 +1,6 @@
 package com.example.leitnersystem.Fragments;
 
+import android.app.Application;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.leitnersystem.Adapters.CategoryAdapter;
 import com.example.leitnersystem.RoomCategory.Category;
+import com.example.leitnersystem.RoomCategory.CategoryRepository;
 import com.example.leitnersystem.RoomCategory.CategoryViewModel;
 import com.example.leitnersystem.R;
 import com.example.leitnersystem.RoomQuestion.QuestionViewModel;
@@ -36,6 +38,8 @@ public class CategoryFragment extends Fragment {
 
     private CategoryViewModel mCategoryViewModel;
     private QuestionViewModel mQuestionViewModel;
+
+    public CategoryRepository categoryRepository;
 
     // Fragment requires empty constructor.
     public CategoryFragment() {
@@ -125,19 +129,32 @@ public class CategoryFragment extends Fragment {
             }
         });
 
-
-//        CategoryRepository mRepository = new CategoryRepository();
-//
-//
-//        void LiveData<List<Category>> getAllCategories(){
-//            return mAllCategoies;
-//        }
-//
-//        Log.d(LOGTAG, )
-
         return view;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

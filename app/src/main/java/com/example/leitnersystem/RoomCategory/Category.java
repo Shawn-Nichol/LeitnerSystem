@@ -12,7 +12,7 @@ public class Category {
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "title")
-    private final String mTitle;
+    public final String mTitle;
 
     // Constructor
     public Category(@NonNull String title) {
