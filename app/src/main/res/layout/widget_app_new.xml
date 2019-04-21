@@ -33,11 +33,17 @@
         android:layout_below="@+id/widget_title_section"
         style="@style/AppWidgetSection">
 
-        <TextView
+        <ListView
+            android:id="@+id/widget_stack_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="filler cat"
             style="@style/AppWidgetText"/>
+
+        <TextView
+            android:id="@+id/widget_empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Empty"/>
 
     </LinearLayout>
 

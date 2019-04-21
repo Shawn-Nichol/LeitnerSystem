@@ -18,6 +18,9 @@ public interface CategoryDao {
     @Query("SELECT * FROM title_table ORDER BY title ASC")
     LiveData<List<Category>> getAlphabetizedTitle();
 
+    @Query("SELECT * FROM title_table ORDER BY title ASC")
+    List<Category> getAlphabetizedTitleWidget();
+
     // Declare method to insert a category
     @Insert
     void insert(Category category);

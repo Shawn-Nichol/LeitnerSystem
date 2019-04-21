@@ -22,7 +22,7 @@ public abstract class CategoryRoomDatabase extends RoomDatabase {
     // Make db a singleton to prevent multiple instances of the db being open at once.
     private static volatile CategoryRoomDatabase INSTANCE;
 
-    static CategoryRoomDatabase getDatabase(final Context context) {
+    public static CategoryRoomDatabase getDatabase(final Context context) {
         if(INSTANCE == null) {
             synchronized (CategoryRoomDatabase.class) {
                 if (INSTANCE == null) {
@@ -30,6 +30,7 @@ public abstract class CategoryRoomDatabase extends RoomDatabase {
                             CategoryRoomDatabase.class, "title_database")
                             .fallbackToDestructiveMigration()
                             .addCallback(sRoomDatabaseCallback)
+                            .allowMainThreadQueries()
                             .build();
                 }
             }
@@ -47,7 +48,7 @@ public abstract class CategoryRoomDatabase extends RoomDatabase {
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
 
-            new PopulateDbAsync(INSTANCE).execute();
+//            new PopulateDbAsync(INSTANCE).execute();
         }
     };
 

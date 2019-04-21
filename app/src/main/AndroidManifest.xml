@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <receiver android:name=".Activities.NewAppWidget"
+        <receiver android:name=".Widget.AppWidget"
             tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -33,6 +33,9 @@
         </activity>
         <activity android:name=".Activities.QuestionActivity"
             tools:ignore="InnerclassSeparator" />
+
+        <service android:name=".Widget.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
     </application>
 
 </manifest>

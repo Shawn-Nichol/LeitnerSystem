@@ -27,6 +27,8 @@ public class CategoryViewModel extends AndroidViewModel {
         return mAllCategories;
     }
 
+
+
     // Wrapper insert() method that calls the repository insert.
     public void insert(Category category) {
         mRepository.insert(category);

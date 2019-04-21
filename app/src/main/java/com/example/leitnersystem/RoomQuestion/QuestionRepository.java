@@ -12,8 +12,16 @@ public class QuestionRepository {
     private final QuestionDao questionDao;
     private final LiveData<List<Question>> allQuestions;
 
-    public void insert(Question category) {
-        new InsertAsyncTask(questionDao).execute(category);
+    // Constructor
+    public QuestionRepository(Application application) {
+        QuestionDatabase db = QuestionDatabase.getInstance(application);
+        questionDao = db.questionDao();
+        allQuestions = questionDao.getAllQuestions();
+    }
+
+
+    public void insert(Question question) {
+        new InsertAsyncTask(questionDao).execute(question);
     }
 
     public void delete(Question question){
@@ -30,11 +38,7 @@ public class QuestionRepository {
 
 
 
-    public QuestionRepository(Application application) {
-        QuestionDatabase db = QuestionDatabase.getInstance(application);
-        questionDao = db.questionDao();
-        allQuestions = questionDao.getAllQuestions();
-    }
+
 
     public LiveData<List<Question>> getAllQuestions(){
         return allQuestions;

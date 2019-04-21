@@ -84,6 +84,7 @@ public class CategoryFragment extends Fragment {
         mCategoryViewModel.getAllCategories().observe(getActivity(), new Observer<List<Category>>() {
             @Override
             public void onChanged(@Nullable final List<Category> categories) {
+                Log.d(LOGTAG, "" + categories);
                 adapter.setTitles(categories);
             }
         });
