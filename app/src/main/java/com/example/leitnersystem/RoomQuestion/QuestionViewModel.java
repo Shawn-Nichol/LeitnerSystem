@@ -40,12 +40,9 @@ public class QuestionViewModel extends AndroidViewModel {
         currentCategory.setValue(input);
     }
 
-
-
     public void setSize(String size){
         mSize = size;
     }
-
 
     public void setTextText(String input) {
         mCategory = input;
@@ -53,6 +50,7 @@ public class QuestionViewModel extends AndroidViewModel {
     public String getTextText() {
         return mCategory;
     }
+
 
 
 

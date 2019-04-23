@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.example.leitnersystem.R;
 import com.example.leitnersystem.RoomQuestion.Question;
 import com.example.leitnersystem.RoomQuestion.QuestionViewModel;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.util.Objects;
 
@@ -27,32 +29,42 @@ import butterknife.ButterKnife;
 public class QuestionNewQuestion extends Fragment {
 
     private final String LOGTAG = "QuestionNewQuestion";
-    @BindView (R.id.btn_question_save) Button btnSave;
-    @BindView (R.id.tv_new_question) TextView tvQuestion;
-    @BindView (R.id.tv_new_answer) TextView tvAnswer;
+    @BindView(R.id.question_btn_save)
+    Button btnSave;
+    @BindView(R.id.tv_new_question)
+    TextView tvQuestion;
+    @BindView(R.id.tv_new_answer)
+    TextView tvAnswer;
+    @BindView(R.id.ad_view)
+    AdView adView;
 
     private QuestionViewModel mQuestionViewModel;
 
-    // Empty constructor
+    // Constructor, empty
     public QuestionNewQuestion() {
 
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d(LOGTAG, "onCreateView");
-
         View view = inflater.inflate(R.layout.fragment_question_new_question_layout, container, false);
+        Log.d(LOGTAG, "onCreateView");
 
         // ButterKnife
         ButterKnife.bind(this, view);
 
-        mQuestionViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(QuestionViewModel.class);
+        // AdMob
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        adView.loadAd(adRequest);
 
+
+        mQuestionViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(QuestionViewModel.class);
         mQuestionViewModel.getCurrentCategory().observe(getActivity(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable final String s) {
 
-                btnSave.setOnClickListener(new View.OnClickListener(){
+                btnSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -63,18 +75,18 @@ public class QuestionNewQuestion extends Fragment {
                         Log.d(LOGTAG, "Entered Question: " + tvQuestion.getText());
                         Log.d(LOGTAG, "Entered Answer: " + tvAnswer.getText());
 
-                        if(TextUtils.isEmpty(tvQuestion.getText())) {
-                           Toast.makeText(getActivity(), "Question left blank", Toast.LENGTH_SHORT).show();
-                       } else if (TextUtils.isEmpty(tvAnswer.getText())) {
-                           Toast.makeText(getActivity(), "Answer left blank", Toast.LENGTH_SHORT).show();
-                       } else {
-                            Question question = new Question(submitQuestion, submitAnswer, s,1, 0);
+                        if (TextUtils.isEmpty(tvQuestion.getText())) {
+                            Toast.makeText(getActivity(), "Question left blank", Toast.LENGTH_SHORT).show();
+                        } else if (TextUtils.isEmpty(tvAnswer.getText())) {
+                            Toast.makeText(getActivity(), "Answer left blank", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Question question = new Question(submitQuestion, submitAnswer, s, 1, 0);
                             mQuestionViewModel.insert(question);
 
                             // Pop the last fragment transition from the manager's fragment back stack
                             // If there is nothing to pop the action will no be performed.
                             Objects.requireNonNull(getFragmentManager()).popBackStack();
-                       }
+                        }
 
                     }
                 });

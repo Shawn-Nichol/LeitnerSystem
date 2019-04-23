@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.example.leitnersystem.R;
 import com.example.leitnersystem.RoomQuestion.Question;
 import com.example.leitnersystem.RoomQuestion.QuestionViewModel;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.util.List;
 import java.util.Objects;
@@ -55,7 +57,13 @@ public class QuestionStudyFragment extends Fragment {
     CardView cardAnswer;
     @BindView(R.id.card_question)
     CardView cardQuestion;
+    @BindView(R.id.ad_view)
+    AdView adView;
 
+    // Constructor, empty
+    public QuestionStudyFragment() {
+
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup viewGroup, Bundle onSavedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_question_study_layout, viewGroup, false);
@@ -66,6 +74,12 @@ public class QuestionStudyFragment extends Fragment {
 
         //ButterKnife
         ButterKnife.bind(this, view);
+
+        // AdMob
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        adView.loadAd(adRequest);
 
         // View Model
         mQuestionViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(QuestionViewModel.class);

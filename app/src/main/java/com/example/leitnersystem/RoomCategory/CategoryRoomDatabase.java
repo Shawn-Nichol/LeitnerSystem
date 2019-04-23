@@ -30,7 +30,6 @@ public abstract class CategoryRoomDatabase extends RoomDatabase {
                             CategoryRoomDatabase.class, "title_database")
                             .fallbackToDestructiveMigration()
                             .addCallback(sRoomDatabaseCallback)
-                            .allowMainThreadQueries()
                             .build();
                 }
             }

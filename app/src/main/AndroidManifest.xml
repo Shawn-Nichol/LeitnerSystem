@@ -12,6 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
+
+
         <receiver android:name=".Widget.AppWidget"
             tools:ignore="InnerclassSeparator">
             <intent-filter>

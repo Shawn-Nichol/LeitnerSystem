@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_category"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-     >
+    android:orientation="vertical"
+    android:weightSum="100">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_category"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="wrap_content"
+        android:layout_weight="95">
 
-    <include
-        layout="@layout/fab_category"
-        />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_category"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
+        <include layout="@layout/fab_category" />
+    </FrameLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5">
+
+        <include layout="@layout/admob" />
+    </FrameLayout>
+
+</android.support.v7.widget.LinearLayoutCompat>

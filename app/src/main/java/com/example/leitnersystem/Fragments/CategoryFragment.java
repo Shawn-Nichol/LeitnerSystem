@@ -25,10 +25,13 @@ import com.example.leitnersystem.RoomCategory.CategoryRepository;
 import com.example.leitnersystem.RoomCategory.CategoryViewModel;
 import com.example.leitnersystem.R;
 import com.example.leitnersystem.RoomQuestion.QuestionViewModel;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.util.List;
 import java.util.Objects;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
@@ -40,6 +43,9 @@ public class CategoryFragment extends Fragment {
     private QuestionViewModel mQuestionViewModel;
 
     public CategoryRepository categoryRepository;
+
+    @BindView(R.id.ad_view)
+    AdView adView;
 
     // Fragment requires empty constructor.
     public CategoryFragment() {
@@ -59,13 +65,19 @@ public class CategoryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d(LOGTAG, "onCreateVew");
-
         // Inflate the fragment_category_layout
         View view = inflater.inflate(R.layout.fragment_category_layout, container, false);
 
+        Log.d(LOGTAG, "onCreateVew");
+
         // Fragments need to supply a view root in order to bind ButterKnife.
         ButterKnife.bind(this, view);
+
+        // AdMob
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        adView.loadAd(adRequest);
 
         // Adapter handler, specify the handler
         final CategoryAdapter adapter = new CategoryAdapter(getActivity());

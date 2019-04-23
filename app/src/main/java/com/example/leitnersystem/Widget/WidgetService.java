@@ -3,6 +3,7 @@ package com.example.leitnersystem.Widget;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
@@ -36,21 +37,12 @@ public class WidgetService extends RemoteViewsService {
         @Override
         public void onCreate() {
             // Connect to data source
-
-            CategoryRoomDatabase database = CategoryRoomDatabase.getDatabase(context);
-            categoryList = database.CategoryDao().getAlphabetizedTitleWidget();
-
-            for(Category category: categoryList) {
-                category.getTitle();
-
-                Log.d(LOGTAG, category.getTitle());
-            }
+            new dbAsyncTask().execute();
         }
 
         @Override
         public void onDataSetChanged() {
             // Updates widget
-
         }
 
         @Override
@@ -66,7 +58,7 @@ public class WidgetService extends RemoteViewsService {
         @Override
         public RemoteViews getViewAt(int position) {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_item);
-//            views.setTextViewText(R.id.example_widget_item_text, exampleData[position]);
+
             Category current = categoryList.get(position);
 
             views.setTextViewText(R.id.widget_item_text, current.getTitle());
@@ -93,5 +85,26 @@ public class WidgetService extends RemoteViewsService {
         public boolean hasStableIds() {
             return true;
         }
+
+
+        private class dbAsyncTask extends AsyncTask<Void, Void, Void> {
+
+            protected  Void doInBackground(Void... voids) {
+                CategoryRoomDatabase database = CategoryRoomDatabase.getDatabase(context);
+                categoryList = database.CategoryDao().getAlphabetizedTitleWidget();
+
+                for(Category category: categoryList) {
+                    category.getTitle();
+
+                    Log.d(LOGTAG, category.getTitle());
+                }
+
+                return null;
+            }
+        }
+
     }
+
+
+
 }

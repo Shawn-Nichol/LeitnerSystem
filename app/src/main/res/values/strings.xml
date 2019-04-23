@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Leitner System</string>
 
-
+    <!--adMob-->
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <!--rv_row_questions-->
     <string name="rv_row_questions_question">Question</string>
 
@@ -11,7 +12,6 @@
     <string name="btn_save">SAVE</string>
     <string name="btn_correct">CORRECT</string>
     <string name="btn_wrong">WRONG</string>
-
 
 
     <!--Question Details-->

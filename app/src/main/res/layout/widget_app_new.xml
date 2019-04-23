@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,44 +7,56 @@
     android:padding="@dimen/widget_margin"
     tools:ignore="Overdraw">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/widget_title_section"
+        style="@style/AppWidgetSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-
-        android:orientation="vertical"
-        style="@style/AppWidgetSection">
+        android:layout_alignParentTop="true">
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/textView6"
+            style="@style/AppWidgetTitle"
+            android:layout_width="232dp"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            style="@style/AppWidgetTitle"/>
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="0dp"
+            android:text="@string/app_name" />
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/widget_btn_reload"
+            android:layout_width="34dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="R" />
+
+    </RelativeLayout>
 
     <LinearLayout
+        style="@style/AppWidgetSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
 
-        android:orientation="vertical"
         android:layout_below="@+id/widget_title_section"
-        style="@style/AppWidgetSection">
+        android:layout_alignParentStart="true"
+        android:orientation="vertical">
 
         <ListView
             android:id="@+id/widget_stack_view"
+            style="@style/AppWidgetText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/AppWidgetText"/>
+            android:layout_margin="0dp"
+            android:padding="0dp" />
 
         <TextView
             android:id="@+id/widget_empty_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Empty"/>
+            android:text="Empty" />
 
     </LinearLayout>
 

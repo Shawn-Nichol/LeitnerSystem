@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.example.leitnersystem.R;
 import com.example.leitnersystem.RoomCategory.Category;
 import com.example.leitnersystem.RoomCategory.CategoryViewModel;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.util.Objects;
 
@@ -31,8 +33,12 @@ public class CategoryNewTitleFragment extends Fragment {
 
     private CategoryViewModel mCategoryViewModel;
 
-    @BindView(R.id.btn_save) Button btnSave;
-    @BindView(R.id.edit_title) EditText mEditTitleView;
+    @BindView(R.id.btn_save)
+    Button btnSave;
+    @BindView(R.id.new_category_tv_category)
+    EditText mEditTitleView;
+    @BindView(R.id.ad_view)
+    AdView adView;
 
     // Empty Constructor
     public CategoryNewTitleFragment() {
@@ -48,21 +54,27 @@ public class CategoryNewTitleFragment extends Fragment {
         // ButterKnife
         ButterKnife.bind(this, view);
 
+        // AdMob
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        adView.loadAd(adRequest);
+
         // Get new or existing ViewModel from the ViewModel provider.
         mCategoryViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(CategoryViewModel.class);
 
-        btnSave.setOnClickListener(new View.OnClickListener(){
+        btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(LOGTAG, "saveButton pressed");
                 String newEntry = String.valueOf(mEditTitleView.getText());
 
                 Log.d(LOGTAG, "New db category = " + newEntry);
-                if(TextUtils.isEmpty(mEditTitleView.getText())) {
+                if (TextUtils.isEmpty(mEditTitleView.getText())) {
                     Toast.makeText(getActivity(), "No New Entry saved", Toast.LENGTH_SHORT).show();
                 } else {
                     Category category = new Category(String.valueOf(mEditTitleView.getText()));
-                    Log.d(LOGTAG,  "Category  = " + category.toString());
+                    Log.d(LOGTAG, "Category  = " + category.toString());
 
                     mCategoryViewModel.insert(category);
                 }
@@ -74,7 +86,7 @@ public class CategoryNewTitleFragment extends Fragment {
 
                 // FragmentManager handle
                 FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction= Objects.requireNonNull(fragmentManager).beginTransaction();
+                FragmentTransaction fragmentTransaction = Objects.requireNonNull(fragmentManager).beginTransaction();
                 fragmentTransaction
                         .replace(R.id.activity_main_container, categoryFragment)
                         .addToBackStack(null)

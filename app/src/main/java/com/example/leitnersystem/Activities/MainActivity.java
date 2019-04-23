@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.example.leitnersystem.Fragments.CategoryFragment;
 import com.example.leitnersystem.R;
+import com.google.android.gms.ads.MobileAds;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,12 +31,16 @@ public class MainActivity extends AppCompatActivity {
             // Add the fragment to its container with FragmentManager
             FragmentManager fragmentManager = getSupportFragmentManager();
 
+            // AdMob initialize, only has to be done once.
+            MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+
             // FragmentTransaction
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
             fragmentTransaction
                     .add(R.id.activity_main_container, categoryFragment)
                     .commit();
+
         }
     }
 }

@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.example.leitnersystem.R;
 import com.example.leitnersystem.RoomQuestion.Question;
 import com.example.leitnersystem.RoomQuestion.QuestionViewModel;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.util.List;
 import java.util.Objects;
@@ -28,11 +30,14 @@ public class QuestionDetailFragment extends Fragment {
     private final String LOGTAG = "QuestionDetailFragment";
 
 
-
-    @BindView(R.id.tv_question_details_question) TextView tvQuestion;
-    @BindView(R.id.tv_question_details_answer) TextView tvAnswer;
-    @BindView(R.id.tv_question_details_box) TextView tvBox;
-    @BindView(R.id.tv_question_details_counter) TextView tvCounter;
+    @BindView(R.id.tv_question_details_question)
+    TextView tvQuestion;
+    @BindView(R.id.tv_question_details_answer)
+    TextView tvAnswer;
+    @BindView(R.id.tv_question_details_box)
+    TextView tvBox;
+    @BindView(R.id.ad_view)
+    AdView adView;
 
     private int mQuestionNumber;
 
@@ -42,15 +47,24 @@ public class QuestionDetailFragment extends Fragment {
     private int mBox;
     private int mCounter;
 
+    // Constructor, empty
+    public QuestionDetailFragment(){
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup parent, Bundle onSavedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_question_details, parent, false);
+        View view = inflater.inflate(R.layout.fragment_question_details_layout, parent, false);
 
 
         Log.d(LOGTAG, "onCreateView");
 
         // ButterKnife
         ButterKnife.bind(this, view);
+
+        // AdMob
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        adView.loadAd(adRequest);
 
         // ViewModel
         QuestionViewModel mQuestionViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(QuestionViewModel.class);
@@ -64,7 +78,6 @@ public class QuestionDetailFragment extends Fragment {
         Log.d(LOGTAG, "Category " + category);
 
 
-
         mQuestionViewModel.findCategory(category).observe(getActivity(), new Observer<List<Question>>() {
             @Override
             public void onChanged(@Nullable List<Question> questions) {
@@ -72,20 +85,19 @@ public class QuestionDetailFragment extends Fragment {
                 mQuestion = questions.get(mQuestionNumber).getQuestion();
                 mAnswer = questions.get(mQuestionNumber).getAnswer();
                 mBox = questions.get(mQuestionNumber).getBox();
-                mCounter = questions.get(mQuestionNumber).getCounter();
+
 
                 Log.d(LOGTAG,
-                                "ID: " + String.valueOf(mId) +
+                        "ID: " + String.valueOf(mId) +
                                 " Question: " + mQuestion +
                                 " Answer: " + mAnswer +
-                                " Box: " + mBox +
-                                " Counter: " + mCounter);
+                                " Box: " + mBox);
 
 
                 tvQuestion.setText(mQuestion);
                 tvAnswer.setText(mAnswer);
                 tvBox.setText(String.valueOf(mBox));
-                tvCounter.setText(String.valueOf(mCounter));
+
 
             }
         });

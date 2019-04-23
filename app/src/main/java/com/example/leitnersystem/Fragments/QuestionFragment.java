@@ -23,6 +23,9 @@ import com.example.leitnersystem.Adapters.QuestionAdapter;
 import com.example.leitnersystem.R;
 import com.example.leitnersystem.RoomQuestion.Question;
 import com.example.leitnersystem.RoomQuestion.QuestionViewModel;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.List;
 import java.util.Objects;
@@ -32,6 +35,7 @@ import butterknife.ButterKnife;
 
 public class QuestionFragment extends Fragment {
 
+    private AdView adView;
     private final String LOGTAG = "QuestionFragment";
 
     private QuestionViewModel mQuestionViewModel;
@@ -54,6 +58,14 @@ public class QuestionFragment extends Fragment {
 
         // ButterKnife
         ButterKnife.bind(this, view);
+
+      //  MobileAds.initialize(getActivity(), "ca-app-pub-3940256099942544~3347511713");
+
+        adView = view.findViewById(R.id.ad_view);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        adView.loadAd(adRequest);
 
         // RecyclerView setup
         RecyclerView recyclerView = view.findViewById(R.id.rv_question);
