@@ -144,6 +144,7 @@ public class CategoryFragment extends Fragment {
 
         return view;
     }
+
 }
 
 

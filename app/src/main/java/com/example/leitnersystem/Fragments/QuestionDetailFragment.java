@@ -81,22 +81,24 @@ public class QuestionDetailFragment extends Fragment {
         mQuestionViewModel.findCategory(category).observe(getActivity(), new Observer<List<Question>>() {
             @Override
             public void onChanged(@Nullable List<Question> questions) {
-                mId = Objects.requireNonNull(questions).get(mQuestionNumber).getId();
-                mQuestion = questions.get(mQuestionNumber).getQuestion();
-                mAnswer = questions.get(mQuestionNumber).getAnswer();
-                mBox = questions.get(mQuestionNumber).getBox();
 
 
-                Log.d(LOGTAG,
-                        "ID: " + String.valueOf(mId) +
-                                " Question: " + mQuestion +
-                                " Answer: " + mAnswer +
-                                " Box: " + mBox);
+                    mId = Objects.requireNonNull(questions).get(mQuestionNumber).getId();
+                    mQuestion = questions.get(mQuestionNumber).getQuestion();
+                    mAnswer = questions.get(mQuestionNumber).getAnswer();
+                    mBox = questions.get(mQuestionNumber).getBox();
 
 
-                tvQuestion.setText(mQuestion);
-                tvAnswer.setText(mAnswer);
-                tvBox.setText(String.valueOf(mBox));
+                    Log.d(LOGTAG,
+                            "ID: " + String.valueOf(mId) +
+                                    " Question: " + mQuestion +
+                                    " Answer: " + mAnswer +
+                                    " Box: " + mBox);
+
+
+                    tvQuestion.setText(mQuestion);
+                    tvAnswer.setText(mAnswer);
+                    tvBox.setText(String.valueOf(mBox));
 
 
             }

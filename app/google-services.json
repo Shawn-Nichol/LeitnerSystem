@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "884758444526",
+    "firebase_url": "https://leitnersystem-4f133.firebaseio.com",
+    "project_id": "leitnersystem-4f133",
+    "storage_bucket": "leitnersystem-4f133.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:884758444526:android:2dbec9f65292d859",
+        "android_client_info": {
+          "package_name": "com.example.leitnersystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "884758444526-voqgpjbrn9v7guu6qpa4h7m3i2tnln5o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmsM4NfYtdwtm7no0x8VMJr2APwPlijeE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "884758444526-voqgpjbrn9v7guu6qpa4h7m3i2tnln5o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

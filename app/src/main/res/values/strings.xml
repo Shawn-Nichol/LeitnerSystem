@@ -32,4 +32,40 @@
     <string name="study_question_no_more_questions">No More Questions</string>
     <string name="answer_card">Press here to view answer.</string>
 
+    <!--Instructions-->
+    <string name="Instruction_app_description_title">Description</string>
+    <string name="Instruction_app_description">Welcome to the Leitner System, This app is designed to
+    maximize your studying time by focusing on the areas that you need the most help with. Each category
+    you create will have 5 boxes. If you answer a question correctly if goes into the next box if you
+    answer the question incorrectly it goes into box 1.</string>
+
+    <string name="Instruction_box1">- Box 1 will be asked every study session.</string>
+    <string name="Instruction_box2">- Box 2, cards in box 2 are asked every second study session.</string>
+    <string name="Instruction_box3">- Box 3, cards in box 3 are asked every 4th study session.</string>
+    <string name="Instruction_box4">- Box 4, cards in box 4 are asked every 8th study session.</string>
+    <string name="Instruction_box5">- Box 5, cards in box 5 are retired and won\'t be asked again.</string>
+
+    <!--Instruction Step 1-->
+    <string name="Instruction_Step1_title">STEP 1</string>
+    <string name="Instruction_Step1">Create a new Category by pressing the PLUS button in the bottom right.
+        The Category name can be anything you want. Press the save Button.   </string>
+    <!--Instruction Step 2-->
+    <string name="Instruction_Step2_title">STEP 2</string>
+    <string name="Instruction_Step2">After creating a category you can start to add questions.
+    Select the newly created category to enter the question screen. You need to add a couple of question
+    to get started. Press the Plus Button in the bottom right, enter a Question and a answer and hit save.
+    Repeat this process until you run out of questions. You can always come back and add additional
+    question later.</string>
+    <!--Instruction Step 3-->
+    <string name="Instruction_Step3_title">STEP 3</string>
+    <string name="Instruction_Step3">Now you can start your study session. You will be tested on the questions
+        that are available to you. Review app description for more details on the question asked. Press
+        the answer card to see the question answer. Select if answered the question correctly or
+        incorrectly.
+    </string>
+
+    <string name="Instruction_Correct">- Questions answered correctly will move to the next box. </string>
+    <string name="Instruction_Wrong">- Questions answered incorrectly will go back to box 1</string>
+
+
 </resources>

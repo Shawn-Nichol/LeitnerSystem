@@ -14,10 +14,11 @@
         tools:ignore="AllowBackup">
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
+            android:value="ca-app-pub-3940256099942544~3347511713" />
 
 
-        <receiver android:name=".Widget.AppWidget"
+        <receiver
+            android:name=".Widget.AppWidget"
             tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -28,7 +29,10 @@
                 android:resource="@xml/new_app_widget_info" />
         </receiver>
 
-        <activity android:name=".Activities.MainActivity"
+        <activity
+            android:name=".Activities.MainActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,11 +40,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.QuestionActivity"
+        <activity
+            android:name=".Activities.QuestionActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             tools:ignore="InnerclassSeparator" />
 
-        <service android:name=".Widget.WidgetService"
-            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+        <service
+            android:name=".Widget.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>
