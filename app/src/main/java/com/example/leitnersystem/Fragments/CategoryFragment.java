@@ -1,6 +1,6 @@
 package com.example.leitnersystem.Fragments;
 
-import android.app.Application;
+import android.animation.Animator;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -16,7 +16,9 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Toast;
 
 import com.example.leitnersystem.Adapters.CategoryAdapter;
@@ -42,11 +44,9 @@ public class CategoryFragment extends Fragment {
     private CategoryViewModel mCategoryViewModel;
     private QuestionViewModel mQuestionViewModel;
 
-    public CategoryRepository categoryRepository;
-
     @BindView(R.id.ad_view)
     AdView adView;
-
+    View view;
     // Fragment requires empty constructor.
     public CategoryFragment() {
     }
@@ -66,7 +66,7 @@ public class CategoryFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the fragment_category_layout
-        View view = inflater.inflate(R.layout.fragment_category_layout, container, false);
+        view = inflater.inflate(R.layout.fragment_category_layout, container, false);
 
         Log.d(LOGTAG, "onCreateVew");
 
@@ -88,9 +88,8 @@ public class CategoryFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // Get new or existing ViewModel from the ViewModel provider.
-        mCategoryViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(CategoryViewModel.class);
         mQuestionViewModel = ViewModelProviders.of(getActivity()).get(QuestionViewModel.class);
-
+        mCategoryViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(CategoryViewModel.class);
         // Observer the LiveData, return by get AlphabetizedCategories.
         // The onChanged() fires when the observed data changes and the activity is in the foreground.
         mCategoryViewModel.getAllCategories().observe(getActivity(), new Observer<List<Category>>() {
@@ -120,22 +119,34 @@ public class CategoryFragment extends Fragment {
 
         // FAB Handler
         FloatingActionButton fab = view.findViewById(R.id.fab_button);
-
-
-        // setOnClickListener, will launch new window to enter title for a new Category.
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Log.d(LOGTAG, "FAB pressed");
 
                 // Create detailsFragment object
                 CategoryNewTitleFragment newTitleFragment = new CategoryNewTitleFragment();
 
+//                Animator circularReveal = ViewAnimationUtils.createCircularReveal(
+//                        view,
+//                        0,
+//                        0,
+//                        0,
+//                        (float) Math.hypot(view.getWidth(), view.getHeight()));
+//                circularReveal.setInterpolator(new AccelerateDecelerateInterpolator());
+//
+//                // Finally start the animation
+//                circularReveal.start();
+
+
                 // FragmentManager/FragmentTransaction
+                CategoryFragment categoryFragment = new CategoryFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = Objects.requireNonNull(fragmentManager).beginTransaction();
                 fragmentTransaction
+                        .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_up, R.anim.slide_in_right, R.anim.slide_up)
                         .replace(R.id.activity_main_container, newTitleFragment)
+
                         .addToBackStack(null)
                         .commit();
 

@@ -21,6 +21,6 @@
 
     <!--Instruction-->
     <dimen name="Instruction_tile_size">24dp</dimen>
-    <dimen name="Instruction_text_size">8dp</dimen>
+
 
 </resources>

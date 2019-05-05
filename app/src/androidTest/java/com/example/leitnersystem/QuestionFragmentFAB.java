@@ -32,7 +32,7 @@ public class QuestionFragmentFAB {
     @Rule
     public ActivityTestRule<QuestionActivity> questionActivityActivityTestRule =
             new ActivityTestRule<QuestionActivity>(QuestionActivity.class) {
-                String mTestCategory = "TestCategory";
+                final String mTestCategory = "TestCategory";
 
                 @Override
                 protected Intent getActivityIntent() {
@@ -44,7 +44,7 @@ public class QuestionFragmentFAB {
 
     @Before
     public void LoadQuestion() {
-        db = (QuestionDatabase) QuestionDatabase.getInstance(InstrumentationRegistry.getInstrumentation().getTargetContext());
+        db = QuestionDatabase.getInstance(InstrumentationRegistry.getInstrumentation().getTargetContext());
 
 
 

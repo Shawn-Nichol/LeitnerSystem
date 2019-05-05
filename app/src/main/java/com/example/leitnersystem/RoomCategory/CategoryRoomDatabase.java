@@ -51,24 +51,26 @@ public abstract class CategoryRoomDatabase extends RoomDatabase {
         }
     };
 
-    private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
-
-        private final CategoryDao mDao;
-
-        PopulateDbAsync(CategoryRoomDatabase db) {
-            mDao = db.CategoryDao();
-        }
-
-        @Override
-        protected Void doInBackground(final Void... params) {
-            mDao.deleteAll();
-
-            Category category = new Category("Hello");
-            mDao.insert(category);
-
-            category = new Category("World");
-            mDao.insert(category);
-            return null;
-        }
-    }
+//    private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
+//
+//        private final CategoryDao mDao;
+//
+//
+//
+//        PopulateDbAsync(CategoryRoomDatabase db) {
+//            mDao = db.CategoryDao();
+//        }
+//
+//        @Override
+//        protected Void doInBackground(final Void... params) {
+//            mDao.deleteAll();
+//
+//            Category category = new Category("Hello");
+//            mDao.insert(category);
+//
+//            category = new Category("World");
+//            mDao.insert(category);
+//            return null;
+//        }
+//    }
 }

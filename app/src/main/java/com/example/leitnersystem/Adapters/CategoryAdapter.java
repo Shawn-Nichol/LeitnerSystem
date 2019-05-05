@@ -91,10 +91,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         holder.cardView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Log.d(LOGTAG, "Category Category " + current.getTitle());
+
+
                 // Get Context returns the context the view is currently running in.
                 Intent myIntent = new Intent(v.getContext(), QuestionActivity.class);
-                // Category Category
-                Log.d(LOGTAG, "Category Category " + current.getTitle());
                 myIntent.putExtra("Category", current.getTitle());
                 v.getContext().startActivity(myIntent);
             }
@@ -109,4 +110,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public int getItemCount() {
         return mCategories.size();
     }
+
+
 }

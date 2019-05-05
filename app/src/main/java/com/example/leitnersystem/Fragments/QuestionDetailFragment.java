@@ -44,8 +44,8 @@ public class QuestionDetailFragment extends Fragment {
     private int mId;
     private String mQuestion;
     private String mAnswer;
+    private String mTransText;
     private int mBox;
-    private int mCounter;
 
     // Constructor, empty
     public QuestionDetailFragment(){
@@ -72,7 +72,11 @@ public class QuestionDetailFragment extends Fragment {
         // Question number
         Bundle bundle = getArguments();
         mQuestionNumber = Objects.requireNonNull(bundle).getInt("Key_QuestionNumber");
-        Log.d(LOGTAG, "QuestionNumber " + mQuestionNumber);
+        mTransText = Objects.requireNonNull(bundle).getString("Key_TRANS_TEXT");
+        Log.d(LOGTAG, "Key_QuestionNumber " + mQuestionNumber);
+        Log.d(LOGTAG, "Key_TRANS_TEXT = " + mTransText);
+
+
 
         final String category = mQuestionViewModel.getTextText();
         Log.d(LOGTAG, "Category " + category);
@@ -82,15 +86,13 @@ public class QuestionDetailFragment extends Fragment {
             @Override
             public void onChanged(@Nullable List<Question> questions) {
 
-
                     mId = Objects.requireNonNull(questions).get(mQuestionNumber).getId();
                     mQuestion = questions.get(mQuestionNumber).getQuestion();
                     mAnswer = questions.get(mQuestionNumber).getAnswer();
                     mBox = questions.get(mQuestionNumber).getBox();
 
-
                     Log.d(LOGTAG,
-                            "ID: " + String.valueOf(mId) +
+                            "ID: " + (mId) +
                                     " Question: " + mQuestion +
                                     " Answer: " + mAnswer +
                                     " Box: " + mBox);
@@ -99,10 +101,12 @@ public class QuestionDetailFragment extends Fragment {
                     tvQuestion.setText(mQuestion);
                     tvAnswer.setText(mAnswer);
                     tvBox.setText(String.valueOf(mBox));
-
-
             }
+
+
         });
+
+        view.findViewById(R.id.tv_question_details_question).setTransitionName(mTransText);
 
         return view;
     }

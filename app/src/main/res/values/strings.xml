@@ -3,8 +3,7 @@
 
     <!--adMob-->
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
-    <!--rv_row_questions-->
-    <string name="rv_row_questions_question">Question</string>
+
 
 
     <!--Buttons Names-->
@@ -13,38 +12,17 @@
     <string name="btn_correct">CORRECT</string>
     <string name="btn_wrong">WRONG</string>
 
-
-    <!--Question Details-->
-    <string name="details_question">QUESTION: </string>
-    <string name="details_answer">ANSWER: </string>
-    <string name="details_box">BOX: </string>
-    <string name="details_counter">Counter:</string>
-
-    <!--New Category-->
-    <string name="new_category_title_hint">New Category</string>
-
-    <!--New Question-->
-    <string name="new_question_question_hint">Enter Question</string>
-    <string name="new_question_answer_hint">Enter Answer</string>
-
-    <!--Study -->
-    <string name="study_question">QUESTIONS</string>
-    <string name="study_question_no_more_questions">No More Questions</string>
-    <string name="answer_card">Press here to view answer.</string>
-
     <!--Instructions-->
     <string name="Instruction_app_description_title">Description</string>
     <string name="Instruction_app_description">Welcome to the Leitner System, This app is designed to
     maximize your studying time by focusing on the areas that you need the most help with. Each category
     you create will have 5 boxes. If you answer a question correctly if goes into the next box if you
     answer the question incorrectly it goes into box 1.</string>
-
     <string name="Instruction_box1">- Box 1 will be asked every study session.</string>
     <string name="Instruction_box2">- Box 2, cards in box 2 are asked every second study session.</string>
     <string name="Instruction_box3">- Box 3, cards in box 3 are asked every 4th study session.</string>
     <string name="Instruction_box4">- Box 4, cards in box 4 are asked every 8th study session.</string>
     <string name="Instruction_box5">- Box 5, cards in box 5 are retired and won\'t be asked again.</string>
-
     <!--Instruction Step 1-->
     <string name="Instruction_Step1_title">STEP 1</string>
     <string name="Instruction_Step1">Create a new Category by pressing the PLUS button in the bottom right.
@@ -63,9 +41,38 @@
         the answer card to see the question answer. Select if answered the question correctly or
         incorrectly.
     </string>
-
     <string name="Instruction_Correct">- Questions answered correctly will move to the next box. </string>
     <string name="Instruction_Wrong">- Questions answered incorrectly will go back to box 1</string>
+
+    <!--Menu-->
+    <string name="menu_instructions">Instructions</string>
+
+    <!--New Category-->
+    <string name="new_category_title_hint">New Category</string>
+
+    <!--New Question-->
+    <string name="new_question_question_hint">Enter Question</string>
+    <string name="new_question_answer_hint">Enter Answer</string>
+
+    <!--Question Details-->
+    <string name="details_question">QUESTION: </string>
+    <string name="details_answer">ANSWER: </string>
+    <string name="details_box">BOX: </string>
+    <string name="details_counter">Counter:</string>
+
+    <!--rv_row_questions-->
+    <string name="rv_row_questions_question">Question</string>
+
+    <!--Study -->
+    <string name="study_question">QUESTIONS</string>
+    <string name="study_question_title">QUESTION</string>
+    <string name="study_question_no_more_questions">No More Questions</string>
+    <string name="study_answer_title">ANSWER</string>
+    <string name="answer_card">Press here to view answer.</string>
+
+    <!--Widget-->
+    <string name="widget_empty">No study Categories</string>
+    <string name="widget_item">item</string>
 
 
 </resources>

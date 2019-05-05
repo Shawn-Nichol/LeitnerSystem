@@ -18,7 +18,6 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.pressBack;
-import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
@@ -29,11 +28,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 @RunWith(AndroidJUnit4.class)
 public class QuestionFragmentStudy {
 
-    private String mTestQuestion = "TestQuestion";
-    private String mTestAnswer = "TestAnswer";
-    private String mTestCategory = "TestCategory";
-    private int mTestBox = 1;
-    private int mTestCounter = 0;
+    private final String mTestQuestion = "TestQuestion";
+    private final String mTestAnswer = "TestAnswer";
+    private final String mTestCategory = "TestCategory";
     QuestionDatabase db;
 
     @Rule
@@ -49,7 +46,9 @@ public class QuestionFragmentStudy {
 
     @Before
     public void LoadQuestion() {
-        db = (QuestionDatabase) QuestionDatabase.getInstance(InstrumentationRegistry.getInstrumentation().getTargetContext());
+        db = QuestionDatabase.getInstance(InstrumentationRegistry.getInstrumentation().getTargetContext());
+        int mTestBox = 1;
+        int mTestCounter = 0;
         Question question = new Question(mTestQuestion, mTestAnswer, mTestCategory, mTestBox, mTestCounter);
         db.questionDao().insert(question);
 

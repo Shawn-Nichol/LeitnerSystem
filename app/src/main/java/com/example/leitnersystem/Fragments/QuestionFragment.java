@@ -25,7 +25,6 @@ import com.example.leitnersystem.RoomQuestion.Question;
 import com.example.leitnersystem.RoomQuestion.QuestionViewModel;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 
 import java.util.List;
 import java.util.Objects;
@@ -35,7 +34,6 @@ import butterknife.ButterKnife;
 
 public class QuestionFragment extends Fragment {
 
-    private AdView adView;
     private final String LOGTAG = "QuestionFragment";
 
     private QuestionViewModel mQuestionViewModel;
@@ -61,7 +59,7 @@ public class QuestionFragment extends Fragment {
 
       //  MobileAds.initialize(getActivity(), "ca-app-pub-3940256099942544~3347511713");
 
-        adView = view.findViewById(R.id.ad_view);
+        AdView adView = view.findViewById(R.id.ad_view);
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
@@ -121,6 +119,7 @@ public class QuestionFragment extends Fragment {
                 QuestionStudyFragment questionStudyFragment = new QuestionStudyFragment();
 
                 fragmentTransaction
+
                         .replace(R.id.activity_question_container, questionStudyFragment, "questionStudyFragment")
                         .addToBackStack("questionFragment_questionStudyFragment_TAG")
                         .commit();
@@ -138,6 +137,7 @@ public class QuestionFragment extends Fragment {
 
                 // Start fragment transaction
                 fragmentTransaction
+                        .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_up, R.anim.slide_in_right, R.anim.slide_up)
                         .replace(R.id.activity_question_container, newQuestion)
                         .addToBackStack(null)
                         .commit();

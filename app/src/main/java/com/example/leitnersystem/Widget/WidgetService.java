@@ -15,7 +15,7 @@ import com.example.leitnersystem.RoomCategory.CategoryRoomDatabase;
 import java.util.List;
 
 public class WidgetService extends RemoteViewsService {
-    private String LOGTAG = "WidgetService";
+    private final String LOGTAG = "WidgetService";
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {

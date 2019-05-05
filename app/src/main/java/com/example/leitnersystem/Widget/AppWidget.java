@@ -6,7 +6,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.widget.Button;
 import android.widget.RemoteViews;
 
@@ -21,8 +20,6 @@ public class AppWidget extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-        final String LOGTAG = "AppWidget";
-
 
         // Widget title launches the main activity
         Intent intent = new Intent(context, MainActivity.class);
@@ -39,21 +36,8 @@ public class AppWidget extends AppWidgetProvider {
         views.setRemoteAdapter(R.id.widget_stack_view, serviceIntent);
         views.setEmptyView(R.id.widget_stack_view, R.id.widget_empty_view);
 
-//        PendingIntent pendingUpdate = PendingIntent.getBroadcast(
-//                context, appWidgetId, serviceIntent,
-//                PendingIntent.FLAG_UPDATE_CURRENT);
-//
-//
-//        views.setOnClickPendingIntent(R.id.widget_btn_reload, serviceIntent);
-
-
-
-
-
-
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
-
 
     }
 

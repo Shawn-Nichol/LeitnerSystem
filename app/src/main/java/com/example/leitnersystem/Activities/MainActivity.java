@@ -1,5 +1,6 @@
 package com.example.leitnersystem.Activities;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -14,8 +15,9 @@ import com.example.leitnersystem.Fragments.InstructionFragment;
 import com.example.leitnersystem.R;
 import com.google.android.gms.ads.MobileAds;
 
+@SuppressWarnings("SwitchStatementWithTooFewBranches")
 public class MainActivity extends AppCompatActivity {
-    private String LOGTAG = "MainActivity";
+    private final String LOGTAG = "MainActivity";
 
 
 
@@ -72,5 +74,15 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
 
+    @Override
+    public void finish(){
+        super.finish();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
 }

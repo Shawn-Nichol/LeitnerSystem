@@ -17,6 +17,7 @@ import com.example.leitnersystem.R;
 import com.example.leitnersystem.RoomQuestion.QuestionViewModel;
 
 
+@SuppressWarnings("SwitchStatementWithTooFewBranches")
 public class QuestionActivity extends AppCompatActivity {
 
     private final String LOGTAG = "QuestionActivity";

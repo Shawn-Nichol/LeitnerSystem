@@ -8,12 +8,12 @@ import com.example.leitnersystem.Activities.MainActivity;
 import com.example.leitnersystem.RoomCategory.Category;
 import com.example.leitnersystem.RoomCategory.CategoryRoomDatabase;
 
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -26,7 +26,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 @RunWith(AndroidJUnit4.class)
 public class CategoryFragmentARecyclerView {
 
-    private String mTestCategory = "TestCategory";
+    private final String mTestCategory = "TestCategory";
 
     private CategoryRoomDatabase db;
     private Category category;

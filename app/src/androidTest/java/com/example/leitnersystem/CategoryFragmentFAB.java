@@ -26,7 +26,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
 public class CategoryFragmentFAB {
-    private String mInsertTestCategory = "InsertTestCategory";
+    private final String mInsertTestCategory = "InsertTestCategory";
     private CategoryRoomDatabase db;
     private Category category;
 

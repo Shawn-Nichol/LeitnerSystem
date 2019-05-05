@@ -26,33 +26,33 @@ public abstract class QuestionDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    private static RoomDatabase.Callback roomCallBack = new RoomDatabase.Callback() {
+    private static final RoomDatabase.Callback roomCallBack = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            new PopulateDbAsyncTask(INSTANCE).execute();
+//            new PopulateDbAsyncTask(INSTANCE).execute();
         }
 
     };
 
-    private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
-
-        private final QuestionDao questionDao;
-
-        public PopulateDbAsyncTask(QuestionDatabase db) {
-            questionDao = db.questionDao();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            questionDao.insert(new Question("Question 1", "Answer 1", "scifi",1 , 1));
-            questionDao.insert(new Question("Question 2", "Answer 2", "scifi", 1, 1));
-            questionDao.insert(new Question("Question 3", "Answer 3", "scifi", 1, 1));
-            questionDao.insert(new Question("Question 4", "Answer 4", "romance",1, 1));
-            questionDao.insert(new Question("Question 5", "Answer 5", "romance", 1, 1));
-
-            return null;
-        }
-    }
+//    private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
+//
+//        private final QuestionDao questionDao;
+//
+//        public PopulateDbAsyncTask(QuestionDatabase db) {
+//            questionDao = db.questionDao();
+//        }
+//
+//        @Override
+//        protected Void doInBackground(Void... voids) {
+//            questionDao.insert(new Question("Question 1", "Answer 1", "scifi",1 , 1));
+//            questionDao.insert(new Question("Question 2", "Answer 2", "scifi", 1, 1));
+//            questionDao.insert(new Question("Question 3", "Answer 3", "scifi", 1, 1));
+//            questionDao.insert(new Question("Question 4", "Answer 4", "romance",1, 1));
+//            questionDao.insert(new Question("Question 5", "Answer 5", "romance", 1, 1));
+//
+//            return null;
+//        }
+//    }
 
 }

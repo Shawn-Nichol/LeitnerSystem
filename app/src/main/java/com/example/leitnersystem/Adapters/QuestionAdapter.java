@@ -3,9 +3,12 @@ package com.example.leitnersystem.Adapters;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.leitnersystem.Fragments.QuestionDetailFragment;
+import com.example.leitnersystem.Fragments.QuestionFragment;
 import com.example.leitnersystem.R;
 import com.example.leitnersystem.RoomQuestion.Question;
 
@@ -67,9 +71,10 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull QuestionViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final QuestionViewHolder holder, final int position) {
         final Question current = mQuestion.get(position);
         holder.myTextView.setText(current.getQuestion());
+
         final int mPosition = holder.getAdapterPosition();
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -77,21 +82,43 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
             @Override
             public void onClick(View v) {
-                Log.d(LOGTAG, "RecyclerView Question number selected " + (mPosition + 1));
+                Log.d(LOGTAG, "RecyclerView Question number selected " + (mPosition));
 
-                Bundle arguments = new Bundle();
-                arguments.putInt("Key_QuestionNumber", mPosition);
+                String textTransitionName = "trans_text_" + (mPosition);
 
                 QuestionDetailFragment questionDetailFragment = new QuestionDetailFragment();
+                QuestionFragment questionFragment = new QuestionFragment();
 
-                questionDetailFragment.setArguments(arguments);
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
 
+                // Inflate Transition
+                Transition changeTransform = TransitionInflater.from(holder.cardView.getContext())
+                        .inflateTransition(R.transition.question_transform);
+
+                holder.cardView.setTransitionName(textTransitionName);
+                Log.d(LOGTAG, "setTransitionName = " + holder.cardView.getTransitionName());
 
 
-                activity.getSupportFragmentManager().beginTransaction()
+                // Exit Transition
+                questionFragment.setSharedElementReturnTransition(changeTransform);
+
+                // Enter Transition on QuestionDetailFragment
+                questionDetailFragment.setSharedElementEnterTransition(changeTransform);
+
+                // Bundle
+                Bundle arguments = new Bundle();
+                arguments.putInt("Key_QuestionNumber", mPosition);
+                arguments.putString("Key_TRANS_TEXT", textTransitionName);
+                Log.d(LOGTAG, "Key_QuestionNumber " + mPosition);
+                Log.d(LOGTAG, "Key_TRANS_TEXT = " + textTransitionName);
+
+                questionDetailFragment.setArguments(arguments);
+
+                activity.getSupportFragmentManager()
+                        .beginTransaction()
                         .replace(R.id.activity_question_container, questionDetailFragment)
                         .addToBackStack(null)
+                        .addSharedElement(holder.cardView, textTransitionName)
                         .commit();
 
             }

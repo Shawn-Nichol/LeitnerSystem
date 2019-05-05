@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="5">
+        android:layout_weight="5"
+        android:background="@color/colorPrimary">
 
 
         <Button
@@ -25,23 +26,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="90">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_question"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/rv_row_question"/>
+            tools:listitem="@layout/rv_row_question" />
 
         <include layout="@layout/fab_category" />
 
     </FrameLayout>
+
     <FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5">
 
-    <include layout="@layout/admob" />
+        <include layout="@layout/admob" />
 
-</FrameLayout>
+    </FrameLayout>
 
 
 </android.support.v7.widget.LinearLayoutCompat>

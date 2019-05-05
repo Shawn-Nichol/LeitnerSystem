@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.leitnersystem.R;
@@ -50,9 +50,9 @@ public class QuestionStudyFragment extends Fragment {
     @BindView(R.id.tv_study_answer)
     TextView tvStudyAnswer;
     @BindView(R.id.btn_study_correct)
-    Button btnCorrect;
+    ImageButton btnCorrect;
     @BindView(R.id.btn_study_wrong)
-    Button btnWrong;
+    ImageButton btnWrong;
     @BindView(R.id.card_answer)
     CardView cardAnswer;
     @BindView(R.id.card_question)
@@ -125,7 +125,7 @@ public class QuestionStudyFragment extends Fragment {
 
                         Log.d(LOGTAG,
                                 "Question observer: " + (mCurrentQuestion + 1) + "/" + mSize +
-                                        " ID: " + String.valueOf(mId) +
+                                        " ID: " + (mId) +
                                         " Question: " + mQuestion +
                                         " Answer: " + mAnswer +
                                         " Category: " + mCategory +
@@ -175,7 +175,7 @@ public class QuestionStudyFragment extends Fragment {
                 }
 
                 Log.d(LOGTAG, "Button correct " +
-                        " ID: " + String.valueOf(mId) +
+                        " ID: " + (mId) +
                         " Question: " + mQuestion +
                         " Answer: " + mAnswer +
                         " Category: " + mCategory +
@@ -210,7 +210,7 @@ public class QuestionStudyFragment extends Fragment {
                 }
 
                 Log.d(LOGTAG, "Button Wrong" +
-                        " ID: " + String.valueOf(mId) +
+                        " ID: " + (mId) +
                         " Question: " + mQuestion +
                         " Answer: " + mAnswer +
                         " Category: " + mCategory +
