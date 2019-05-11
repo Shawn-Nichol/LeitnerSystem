@@ -31,7 +31,7 @@ public class QuestionFragmentStudy {
     private final String mTestQuestion = "TestQuestion";
     private final String mTestAnswer = "TestAnswer";
     private final String mTestCategory = "TestCategory";
-    QuestionDatabase db;
+    private QuestionDatabase db;
 
     @Rule
     public ActivityTestRule<QuestionActivity> questionActivityActivityTestRule =

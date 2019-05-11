@@ -33,26 +33,16 @@ public class QuestionViewModel extends AndroidViewModel {
         return mRepository.findCategory(genre);
     }
 
-
-
-    public void setText(String input) {
-        Log.d(LOGTAG, "setText = " + input);
-        currentCategory.setValue(input);
-    }
-
     public void setSize(String size){
         mSize = size;
     }
 
-    public void setTextText(String input) {
+    public void setTitle(String input) {
         mCategory = input;
     }
-    public String getTextText() {
+    public String getTitle() {
         return mCategory;
     }
-
-
-
 
     public MutableLiveData<String> getCurrentCategory() {
         Log.d(LOGTAG, "getCurrentCategory = " + currentCategory);
@@ -72,6 +62,5 @@ public class QuestionViewModel extends AndroidViewModel {
     }
 
     public void updateQuestion(Question question) {mRepository.updateQuestion(question);}
-
 
 }

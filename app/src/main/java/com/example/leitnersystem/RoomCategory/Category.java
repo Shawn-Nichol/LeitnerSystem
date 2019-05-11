@@ -8,11 +8,10 @@ import android.support.annotation.NonNull;
 @Entity(tableName = "title_table")
 public class Category {
 
-
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "title")
-    public final String mTitle;
+    private final String mTitle;
 
     // Constructor
     public Category(@NonNull String title) {

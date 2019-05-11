@@ -45,6 +45,14 @@ public class QuestionNewQuestion extends Fragment {
 
     }
 
+    /**
+     * Inflates the fragment_question_new_question_layout file
+     *
+     * @param inflater The LayoutInflater object can be used to inflate any views in the fragment.
+     * @param container this is the parent view that the fragment's UI is attached to.
+     * @param savedInstanceState if non-null this fragment is being re-constructed from a previous saved state.
+     * @return return the view of the fragment's UI, or null.
+     */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_question_new_question_layout, container, false);
         Log.d(LOGTAG, "onCreateView");
@@ -57,7 +65,6 @@ public class QuestionNewQuestion extends Fragment {
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
         adView.loadAd(adRequest);
-
 
         mQuestionViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(QuestionViewModel.class);
         mQuestionViewModel.getCurrentCategory().observe(getActivity(), new Observer<String>() {
@@ -76,9 +83,9 @@ public class QuestionNewQuestion extends Fragment {
                         Log.d(LOGTAG, "Entered Answer: " + tvAnswer.getText());
 
                         if (TextUtils.isEmpty(tvQuestion.getText())) {
-                            Toast.makeText(getActivity(), "Question left blank", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), R.string.new_question_question_left_blank, Toast.LENGTH_SHORT).show();
                         } else if (TextUtils.isEmpty(tvAnswer.getText())) {
-                            Toast.makeText(getActivity(), "Answer left blank", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), R.string.new_question_answer_left_blank, Toast.LENGTH_SHORT).show();
                         } else {
                             Question question = new Question(submitQuestion, submitAnswer, s, 1, 0);
                             mQuestionViewModel.insert(question);

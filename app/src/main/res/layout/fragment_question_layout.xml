@@ -33,7 +33,8 @@
             android:layout_height="match_parent"
             tools:listitem="@layout/rv_row_question" />
 
-        <include layout="@layout/fab_category" />
+        <include layout="@layout/fab_category"
+            android:contentDescription="@string/fab_content_description_question_answer"/>
 
     </FrameLayout>
 
@@ -42,7 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="5">
 
-        <include layout="@layout/admob" />
+        <include layout="@layout/admob"
+            />
 
     </FrameLayout>
 

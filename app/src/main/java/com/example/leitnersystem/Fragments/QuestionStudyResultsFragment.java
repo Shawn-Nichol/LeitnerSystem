@@ -24,8 +24,16 @@ public class QuestionStudyResultsFragment extends Fragment {
 
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup viewGroup, Bundle onSavedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_question_study_results_layout, viewGroup, false);
+    /**
+     * Inflates the fragment_question_study_results_layout file
+     *
+     * @param inflater The LayoutInflater object can be used to inflate any views in the fragment.
+     * @param container this is the parent view that the fragment's UI is attached to.
+     * @param savedInstanceState if non-null this fragment is being re-constructed from a previous saved state.
+     * @return return the view of the fragment's UI, or null.
+     */
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_question_study_results_layout, container, false);
 
         // ButterKnife
         ButterKnife.bind(this, view);

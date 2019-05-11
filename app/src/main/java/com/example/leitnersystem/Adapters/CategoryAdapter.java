@@ -48,13 +48,22 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         this.mInflater = LayoutInflater.from(context);
     }
 
+    /**
+     *
+     * @param categories List of categories to choose from.
+     */
     public void setTitles(List<Category> categories) {
         mCategories = categories;
         notifyDataSetChanged();
     }
 
-    // Used to identify the question the user wants to delete.
-    // Get Question to delete
+
+    /**
+     * getCategoryAt is used to identify the category the user wants to delete.
+     *
+     * @param position the position in the list
+     * @return the position selected.
+     */
     public Category getCategoryAt(int position) {
         return mCategories.get(position);
     }
@@ -65,7 +74,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
      *
      * @param parent The ViewGroup into which the new view will be added after it is bound to an
      *              adapter position.
-     *
      * @param viewType The view type of the new View.
      */
     @NonNull
@@ -77,7 +85,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     /**
      * onBindViewHolder, called by the RecyclerView to display data at the specified position. This
-     * method will updateQuestion the contents of the itemView to reflect the item at the given position.
+     * method will the contents of the itemView to reflect the item at the given position.
      *
      * @param holder The CategoryViewHolder will be updated to represent the contents of the item at
      *               the given position.
@@ -93,7 +101,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             public void onClick(View v) {
                 Log.d(LOGTAG, "Category Category " + current.getTitle());
 
-
                 // Get Context returns the context the view is currently running in.
                 Intent myIntent = new Intent(v.getContext(), QuestionActivity.class);
                 myIntent.putExtra("Category", current.getTitle());
@@ -104,6 +111,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     /**
      * getItemCount, gets the total item count for the RecyclerView.
+     *
      * @return returns item count.
      */
     @Override

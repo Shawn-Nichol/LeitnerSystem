@@ -25,12 +25,7 @@ public interface CategoryDao {
     @Insert
     void insert(Category category);
 
+    // Declare a method to delete a category.
     @Delete
     void delete(Category category);
-
-    // Declare a method to delete all the titles,
-    @Query("DELETE FROM title_table")
-    void deleteAll();
-
-
 }

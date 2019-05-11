@@ -20,6 +20,14 @@ public class InstructionFragment extends Fragment {
     @BindView(R.id.ad_view)
     AdView adView;
 
+    /**
+     * Inflates the fragment_instructions file
+     *
+     * @param inflater The LayoutInflater object can be used to inflate any views in the fragment.
+     * @param container this is the parent view that the fragment's UI is attached to.
+     * @param savedInstanceState if non-null this fragment is being re-constructed from a previous saved state.
+     * @return return the view of the fragment's UI, or null.
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -27,6 +35,7 @@ public class InstructionFragment extends Fragment {
 
         //Butter Knife
         ButterKnife.bind(this, view);
+
         // AdMob
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)

@@ -46,6 +46,14 @@ public class QuestionFragment extends Fragment {
     public QuestionFragment() {
     }
 
+    /**
+     * Inflates the fragment_question_layout file
+     *
+     * @param inflater The LayoutInflater object can be used to inflate any views in the fragment.
+     * @param container this is the parent view that the fragment's UI is attached to.
+     * @param savedInstanceState if non-null this fragment is being re-constructed from a previous saved state.
+     * @return return the view of the fragment's UI, or null.
+     */
     @NonNull
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,8 +65,7 @@ public class QuestionFragment extends Fragment {
         // ButterKnife
         ButterKnife.bind(this, view);
 
-      //  MobileAds.initialize(getActivity(), "ca-app-pub-3940256099942544~3347511713");
-
+        //  Ad mob
         AdView adView = view.findViewById(R.id.ad_view);
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
@@ -80,7 +87,7 @@ public class QuestionFragment extends Fragment {
 
         // Get new or existing ViewModel from the View Model provider
         mQuestionViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(QuestionViewModel.class);
-        mCategory = mQuestionViewModel.getTextText();
+        mCategory = mQuestionViewModel.getTitle();
 
         mQuestionViewModel.findCategory(mCategory).observe(getActivity(), new Observer<List<Question>>() {
             @Override
@@ -96,15 +103,30 @@ public class QuestionFragment extends Fragment {
         //  Used to delete Question by swiping to the left or right.
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            /**
+             * onMove call when Item TouchHelper wants to move the dragged item from its old position
+             * to the new position.
+             *
+             * @param recyclerView The RecyclerView to which the ItemTouchHelper is attached.
+             * @param viewHolder The ViewHolder is being dragged by the user.
+             * @param viewHolder1 The ViewHolder over which the current active item is being dragged.
+             * @return the view of the fragment's UI, or null.
+             */
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
                 return false;
             }
 
+            /**
+             * onSwiped Called when the ViewHolder is swiped by the user.
+             *
+             * @param viewHolder The ViewHolder which has been swiped by the user.
+             * @param direction The direction to which the ViewHolder is swiped(Left or Right).
+             */
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 mQuestionViewModel.delete(adapter.getQuestionAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(getActivity(), "Question deleted.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.question_swipe, Toast.LENGTH_SHORT).show();
             }
 
 

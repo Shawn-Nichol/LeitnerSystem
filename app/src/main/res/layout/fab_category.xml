@@ -8,6 +8,7 @@
         android:id="@+id/fab_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="@dimen/fab_margin"
         android:src="@drawable/fab_plus"
@@ -15,7 +16,6 @@
         app:elevation="@dimen/fab_resting_elevation"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_gravity="bottom|end"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.design.widget.CoordinatorLayout>

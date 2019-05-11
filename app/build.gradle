@@ -2,13 +2,20 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        release {
-            keyAlias = 'Shawn'
+        debug {
+            storeFile file('C:\\Users\\Public\\Documents\\LSKeyStore.jks')
             storePassword 'password'
+            keyAlias = 'key0'
             keyPassword 'password'
-            storeFile file('D:\\LeitnerSystem\\keystore.jks')
+        }
+        release {
+            storeFile file('C:\\Users\\Public\\Documents\\LSKeyStore.jks')
+            storePassword 'password'
+            keyAlias = 'key0'
+            keyPassword 'password'
         }
     }
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.leitnersystem"
@@ -17,7 +24,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        signingConfig signingConfigs.release
+//        signingConfig signingConfigs.release
     }
     buildTypes {
         release {
@@ -64,7 +71,7 @@ dependencies {
     // Fab Design
     implementation "com.android.support:design:28.0.0"
 
-    // Firebase
+    // FireBase
     implementation 'com.google.firebase:firebase-core:16.0.8'
 
     // Add Performance Monitoring dependency line

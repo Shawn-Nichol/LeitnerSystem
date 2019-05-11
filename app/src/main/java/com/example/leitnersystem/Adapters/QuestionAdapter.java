@@ -3,7 +3,6 @@ package com.example.leitnersystem.Adapters;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -45,24 +44,39 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
     private final LayoutInflater mInflater;
     private List<Question> mQuestion = Collections.emptyList();
-//    private QuestionViewModel mQuestionViewModel;
 
     public QuestionAdapter(Context context) {
         this.mInflater = LayoutInflater.from(context);
         notifyDataSetChanged();
     }
 
-    // Used to identify the question the user wants to delete.
+    /**
+     *
+     * @param question List of questions to choose from.
+     */
     public void setQuestion(List<Question> question) {
         mQuestion =  question;
         notifyDataSetChanged();
     }
 
-    // Get Question to delete
+    /**
+     * getQuestionAt is used to identify the question the user wants to delete.
+     *
+     * @param position the position selected in the list
+     * @return the position selected.
+     */
     public Question getQuestionAt(int position) {
         return mQuestion.get(position);
     }
 
+    /**
+     * OnCreateViewHolder is called when RecyclerView needs to add a new view that can represent the
+     * items of the given type
+     *
+     * @param parent The ViewGroup into which the new view will be added after it is bound to an
+     *               adapter position.
+     * @param viewType The View type of the new view.
+     */
     @NonNull
     @Override
     public QuestionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -70,6 +84,14 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         return new QuestionViewHolder(view);
     }
 
+    /**
+     * onBindViewHolder, called by the RecyclerView to display data at the specified position. This
+     * method will update the contents of the ItemView to reflect the item at the given position.
+     *
+     * @param holder The QuestionView holder will be updated to represent the contents of the item at
+     *               the given position.
+     * @param position The position of the item with in the adapter's data set.
+     */
     @Override
     public void onBindViewHolder(@NonNull final QuestionViewHolder holder, final int position) {
         final Question current = mQuestion.get(position);
@@ -78,16 +100,14 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         final int mPosition = holder.getAdapterPosition();
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View v) {
                 Log.d(LOGTAG, "RecyclerView Question number selected " + (mPosition));
 
-                String textTransitionName = "trans_text_" + (mPosition);
-
                 QuestionDetailFragment questionDetailFragment = new QuestionDetailFragment();
                 QuestionFragment questionFragment = new QuestionFragment();
+
+                String textTransitionName = "trans_text_" + (mPosition);
 
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
 
@@ -109,10 +129,10 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                 Bundle arguments = new Bundle();
                 arguments.putInt("Key_QuestionNumber", mPosition);
                 arguments.putString("Key_TRANS_TEXT", textTransitionName);
+                questionDetailFragment.setArguments(arguments);
+
                 Log.d(LOGTAG, "Key_QuestionNumber " + mPosition);
                 Log.d(LOGTAG, "Key_TRANS_TEXT = " + textTransitionName);
-
-                questionDetailFragment.setArguments(arguments);
 
                 activity.getSupportFragmentManager()
                         .beginTransaction()
@@ -127,6 +147,11 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
     }
 
+    /**
+     * getItemCount, gets the total item count for the RecyclerView.
+     *
+     * @return item count.
+     */
     @Override
     public int getItemCount() {
         return mQuestion.size();

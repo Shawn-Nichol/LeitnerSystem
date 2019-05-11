@@ -42,9 +42,16 @@ public class CategoryNewTitleFragment extends Fragment {
 
     // Empty Constructor
     public CategoryNewTitleFragment() {
-
     }
 
+    /**
+     * Inflates the fragment_category_new_title_layout file
+     *
+     * @param inflater The LayoutInflater object can be used to inflate any views in the fragment.
+     * @param container this is the parent view that the fragment's UI is attached to.
+     * @param savedInstanceState if non-null this fragment is being re-constructed from a previous saved state.
+     * @return return the view of the fragment's UI, or null.
+     */
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_category_new_title_layout, container, false);
@@ -67,18 +74,18 @@ public class CategoryNewTitleFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(LOGTAG, "saveButton pressed");
-                String newEntry = String.valueOf(mEditTitleView.getText());
 
+                String newEntry = String.valueOf(mEditTitleView.getText());
                 Log.d(LOGTAG, "New db category = " + newEntry);
+
                 if (TextUtils.isEmpty(mEditTitleView.getText())) {
-                    Toast.makeText(getActivity(), "No New Entry saved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.no_new_entry, Toast.LENGTH_SHORT).show();
                 } else {
                     Category category = new Category(String.valueOf(mEditTitleView.getText()));
                     Log.d(LOGTAG, "Category  = " + category.toString());
 
                     mCategoryViewModel.insert(category);
                 }
-
 
                 // ReLaunch CategoryFragment.
                 // Create detailsFragment object

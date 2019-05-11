@@ -19,7 +19,6 @@ public class QuestionRepository {
         allQuestions = questionDao.getAllQuestions();
     }
 
-
     public void insert(Question question) {
         new InsertAsyncTask(questionDao).execute(question);
     }
@@ -36,10 +35,6 @@ public class QuestionRepository {
         new UpdateAsyncTask(questionDao).execute(question);
     }
 
-
-
-
-
     public LiveData<List<Question>> getAllQuestions(){
         return allQuestions;
     }
@@ -47,7 +42,6 @@ public class QuestionRepository {
     public LiveData<List<Question>> findCategory(String category) {
         return questionDao.findCategory(category);
     }
-
 
     private static class InsertAsyncTask extends AsyncTask<Question, Void, Void> {
         private final QuestionDao mAsyncTaskDao;
@@ -104,6 +98,5 @@ public class QuestionRepository {
             return null;
         }
     }
-
 
 }

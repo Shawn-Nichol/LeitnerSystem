@@ -62,15 +62,21 @@ public class QuestionStudyFragment extends Fragment {
 
     // Constructor, empty
     public QuestionStudyFragment() {
-
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup viewGroup, Bundle onSavedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_question_study_layout, viewGroup, false);
+    /**
+     * Inflates the fragment_question_study_layout file
+     *
+     * @param inflater The LayoutInflater object can be used to inflate any views in the fragment.
+     * @param container this is the parent view that the fragment's UI is attached to.
+     * @param savedInstanceState if non-null this fragment is being re-constructed from a previous saved state.
+     * @return return the view of the fragment's UI, or null.
+     */
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.fragment_question_study_layout, container, false);
         Log.d(LOGTAG, "onCreateView");
 
         mCurrentQuestion = 0;
-
 
         //ButterKnife
         ButterKnife.bind(this, view);
@@ -88,8 +94,7 @@ public class QuestionStudyFragment extends Fragment {
         final FragmentManager fragmentManager = getFragmentManager();
         final FragmentTransaction fragmentTransaction = Objects.requireNonNull(fragmentManager).beginTransaction();
 
-
-        final String savedCategory = mQuestionViewModel.getTextText();
+        final String savedCategory = mQuestionViewModel.getTitle();
         Log.d(LOGTAG, "Saved Category " + savedCategory);
         mQuestionViewModel.findCategory(savedCategory).observe(getActivity(), new Observer<List<Question>>() {
             @Override
@@ -109,7 +114,6 @@ public class QuestionStudyFragment extends Fragment {
                             .replace(R.id.activity_question_container, questionStudyResultsFragment, "questionStudyResultsFragment")
                             .commit();
 
-
                 } else {
                     mCounter = questions.get(mCurrentQuestion).getCounter();
                     mId = questions.get(mCurrentQuestion).getId();
@@ -117,6 +121,7 @@ public class QuestionStudyFragment extends Fragment {
                     mAnswer = questions.get(mCurrentQuestion).getAnswer();
                     mCategory = questions.get(mCurrentQuestion).getCategory();
                     mBox = questions.get(mCurrentQuestion).getBox();
+
                     // Only asks questions if counter equals 0.
                     if (mCounter == 0) {
                         mQuestionViewModel.setSize(String.valueOf(mSize));
@@ -144,7 +149,6 @@ public class QuestionStudyFragment extends Fragment {
                 }
             }
         });
-
 
         // User presses this button if they answer the question correctly
         btnCorrect.setOnClickListener(new View.OnClickListener() {
@@ -192,16 +196,14 @@ public class QuestionStudyFragment extends Fragment {
             }
         });
 
-
         //  User presses this button if they answer question wrong.
-
         btnWrong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(LOGTAG, "btnWrong pressed");
                 int counter;
 
-                if (mCounter <= 0) {
+                if (mCounter == 0) {
                     counter = 0;
                 } else if (mCounter < 0) {
                     counter = mCounter;

@@ -9,17 +9,14 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class CategoryRepository {
 
-    // Member variables for the DAO and the list of words
     private final CategoryDao mCategoryDao;
     private final LiveData<List<Category>> mAllTitles;
-//    private final List<Category> mAllTitlesWidget;
 
     // Constructor
     CategoryRepository(Application application) {
         CategoryRoomDatabase db = CategoryRoomDatabase.getDatabase(application);
         mCategoryDao = db.CategoryDao();
         mAllTitles = mCategoryDao.getAlphabetizedTitle();
-//        mAllTitlesWidget = mCategoryDao.getAlphabetizedTitleWidget();
     }
 
     // Room executes all queries on a separate thread, Observed LiveData will notify the observer
@@ -27,7 +24,6 @@ public class CategoryRepository {
     LiveData<List<Category>> getAllTitles() {
         return mAllTitles;
     }
-//    LiveData<Category> getAllTitlesWidget() {return mAllTitlesWidget;}
 
     public void insert(Category category) {
         new insertAsyncTask(mCategoryDao).execute(category);

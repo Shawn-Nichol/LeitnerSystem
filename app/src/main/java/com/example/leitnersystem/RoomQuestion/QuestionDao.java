@@ -24,15 +24,9 @@ public interface QuestionDao {
     @Query("DELETE FROM questions_table")
     void deleteAllQuestions();
 
-
     @Query("SELECT * FROM questions_table")
     LiveData<List<Question>> getAllQuestions();
 
-
     @Query("SELECT * FROM questions_table WHERE category = :category")
     LiveData<List<Question>> findCategory(String category);
-
-
-
-
 }

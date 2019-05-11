@@ -1,13 +1,9 @@
 package com.example.leitnersystem.RoomCategory;
 
-import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
-import android.os.AsyncTask;
-import android.support.annotation.NonNull;
-
 
 
 /**
@@ -29,48 +25,10 @@ public abstract class CategoryRoomDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             CategoryRoomDatabase.class, "title_database")
                             .fallbackToDestructiveMigration()
-                            .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
             }
         }
         return INSTANCE;
     }
-
-    /**
-     * Override the onOpen method to populate the db.
-     *
-     * populate the db only when the db is created the 1st time, Override RoomDatabase.CallBack()#onCreate
-     */
-    private static final RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
-        @Override
-        public void onOpen(@NonNull SupportSQLiteDatabase db) {
-            super.onOpen(db);
-
-//            new PopulateDbAsync(INSTANCE).execute();
-        }
-    };
-
-//    private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
-//
-//        private final CategoryDao mDao;
-//
-//
-//
-//        PopulateDbAsync(CategoryRoomDatabase db) {
-//            mDao = db.CategoryDao();
-//        }
-//
-//        @Override
-//        protected Void doInBackground(final Void... params) {
-//            mDao.deleteAll();
-//
-//            Category category = new Category("Hello");
-//            mDao.insert(category);
-//
-//            category = new Category("World");
-//            mDao.insert(category);
-//            return null;
-//        }
-//    }
 }

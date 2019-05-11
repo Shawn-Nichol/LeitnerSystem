@@ -12,6 +12,15 @@
     <string name="btn_correct">CORRECT</string>
     <string name="btn_wrong">WRONG</string>
 
+    <!--CategoryFragment-->
+    <string name="category_swipe">Category and all questions in the category deleted</string>
+
+    <!--CategoryNewTitleFragment-->
+    <string name="no_new_entry">No new entry saved</string>
+
+    <!--FAB -->
+    <string name="fab_content_description_category">Add new category</string>
+    <string name="fab_content_description_question_answer">Add new question and answer.</string>
     <!--Instructions-->
     <string name="Instruction_app_description_title">Description</string>
     <string name="Instruction_app_description">Welcome to the Leitner System, This app is designed to
@@ -53,12 +62,15 @@
     <!--New Question-->
     <string name="new_question_question_hint">Enter Question</string>
     <string name="new_question_answer_hint">Enter Answer</string>
+    <string name="new_question_question_left_blank">Question Left Blank</string>
+    <string name="new_question_answer_left_blank">Answer left Blank</string>
 
+    <!--QuestionFragment-->
+    <string name="question_swipe">Question deleted</string>
     <!--Question Details-->
     <string name="details_question">QUESTION: </string>
     <string name="details_answer">ANSWER: </string>
     <string name="details_box">BOX: </string>
-    <string name="details_counter">Counter:</string>
 
     <!--rv_row_questions-->
     <string name="rv_row_questions_question">Question</string>
@@ -73,6 +85,7 @@
     <!--Widget-->
     <string name="widget_empty">No study Categories</string>
     <string name="widget_item">item</string>
+    <string name="widget_clicked_position">Clicked position </string>
 
 
 </resources>

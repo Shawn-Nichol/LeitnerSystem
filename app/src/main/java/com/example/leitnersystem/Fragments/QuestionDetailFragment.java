@@ -51,9 +51,16 @@ public class QuestionDetailFragment extends Fragment {
     public QuestionDetailFragment(){
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup parent, Bundle onSavedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_question_details_layout, parent, false);
-
+    /**
+     * Inflates the fragment_question_details_layout file
+     *
+     * @param inflater The LayoutInflater object can be used to inflate any views in the fragment.
+     * @param container this is the parent view that the fragment's UI is attached to.
+     * @param savedInstanceState if non-null this fragment is being re-constructed from a previous saved state.
+     * @return return the view of the fragment's UI, or null.
+     */
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_question_details_layout, container, false);
 
         Log.d(LOGTAG, "onCreateView");
 
@@ -76,11 +83,8 @@ public class QuestionDetailFragment extends Fragment {
         Log.d(LOGTAG, "Key_QuestionNumber " + mQuestionNumber);
         Log.d(LOGTAG, "Key_TRANS_TEXT = " + mTransText);
 
-
-
-        final String category = mQuestionViewModel.getTextText();
+        final String category = mQuestionViewModel.getTitle();
         Log.d(LOGTAG, "Category " + category);
-
 
         mQuestionViewModel.findCategory(category).observe(getActivity(), new Observer<List<Question>>() {
             @Override

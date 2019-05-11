@@ -19,14 +19,16 @@ import com.google.android.gms.ads.MobileAds;
 public class MainActivity extends AppCompatActivity {
     private final String LOGTAG = "MainActivity";
 
-
-
+    /**
+     * onCreate Initialize Activity.
+     *
+     * @param savedInstanceState data saved from previous use.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       final String LOGTAG = "MainActivity";
 
         Log.d(LOGTAG, "MainActivity");
 
@@ -49,6 +51,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * onCreateOptionsMenu Initializes the contents of the menu options.
+     *
+     * @param menu the options menu in which you place your items.
+     * @return must return true in order to display the Menu.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -56,6 +64,13 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * onOptionsItemSelected is called when an item in the options menu is selected.
+     *
+     * @param item The menu item selected, Item can't be null.
+     * @return Returns false to allow normal menu processing to proceed, when item is successfully
+     * handled it returns true.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
 
@@ -74,12 +89,22 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * StartActivity is a special variation to launch the Activity, used to provide alter the start
+     * animation.
+     *
+     * @param intent, the intent to start. The value must never be null.
+     */
     @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
+    /**
+     * finish call this when you activity is done and should be closed. Used to include animation
+     * when exiting activity.
+     */
     @Override
     public void finish(){
         super.finish();

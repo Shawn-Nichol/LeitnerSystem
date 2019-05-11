@@ -18,7 +18,9 @@
             android:layout_height="match_parent"
             tools:listitem="@layout/rv_row_category"/>
 
-        <include layout="@layout/fab_category" />
+        <include layout="@layout/fab_category"
+            android:contentDescription="@string/fab_content_description_category"/>
+
     </FrameLayout>
 
     <FrameLayout

@@ -23,7 +23,11 @@ public class QuestionActivity extends AppCompatActivity {
     private final String LOGTAG = "QuestionActivity";
     private String mCurrentCategory;
 
-
+    /**
+     * onCreate Initialize Activity
+     *
+     * @param savedInstanceState data saved from previous use.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,15 +36,14 @@ public class QuestionActivity extends AppCompatActivity {
         // Prevents fragments from loading on device rotation
         if(savedInstanceState == null) {
             Intent mainIntent = getIntent();
-            mCurrentCategory = mainIntent.getStringExtra("Category");
-
             Log.d(LOGTAG, "onCreate");
+
+            mCurrentCategory = mainIntent.getStringExtra("Category");
             Log.d(LOGTAG, "mCurrentCategory = " + mCurrentCategory);
 
             // Get new or existing ViewModel from the ViewModel provider
             QuestionViewModel mQuestionViewModel = ViewModelProviders.of(this).get(QuestionViewModel.class);
-            mQuestionViewModel.setText(mCurrentCategory);
-            mQuestionViewModel.setTextText(mCurrentCategory);
+            mQuestionViewModel.setTitle(mCurrentCategory);
 
             // Sets title on app bar, easy to tell what category you are in.
             setTitle(mCurrentCategory);
@@ -57,6 +60,13 @@ public class QuestionActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * onBackPressed called when the activity has detected the user's press of the back key.
+     *
+     * if, Tag is equal to questionStudyResultsFragment the back button will take you back to the
+     *      QuestionFragment
+     * else the back button will take you back to the previous fragment.
+     */
     @Override
     public void onBackPressed() {
 
@@ -75,6 +85,12 @@ public class QuestionActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * onCreateOptionsMenu Initialize the contents of the options menu.
+     *
+     * @param menu the options menu, where items are stored.
+     * @return must return true for the menu to be displayed
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -82,16 +98,25 @@ public class QuestionActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * onOptionsItemSelected is called when an item in the options menu is selected.
+     *
+     * @param item The menu item selected, Item can't be null.
+     * @return Returns false to allow normal menu processing to proceed, when item is successfully
+     *      handled it returns true.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
 
         switch(item.getItemId()) {
             case R.id.menu_instruction:
                 Log.d(LOGTAG, "Menu Instructions");
+
                 InstructionFragment instructionFragment = new InstructionFragment();
-                FragmentManager fm = getSupportFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft
+
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction
                         .replace(R.id.activity_question_container, instructionFragment)
                         .addToBackStack(null)
                         .commit();

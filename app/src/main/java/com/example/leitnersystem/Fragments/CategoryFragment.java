@@ -1,8 +1,10 @@
 package com.example.leitnersystem.Fragments;
 
-import android.animation.Animator;
+import android.appwidget.AppWidgetManager;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.ComponentName;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,17 +18,15 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Toast;
 
 import com.example.leitnersystem.Adapters.CategoryAdapter;
 import com.example.leitnersystem.RoomCategory.Category;
-import com.example.leitnersystem.RoomCategory.CategoryRepository;
 import com.example.leitnersystem.RoomCategory.CategoryViewModel;
 import com.example.leitnersystem.R;
 import com.example.leitnersystem.RoomQuestion.QuestionViewModel;
+import com.example.leitnersystem.Widget.AppWidget;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -46,27 +46,24 @@ public class CategoryFragment extends Fragment {
 
     @BindView(R.id.ad_view)
     AdView adView;
-    View view;
+
     // Fragment requires empty constructor.
     public CategoryFragment() {
     }
 
-
     /**
      * Inflates the fragment_category_layout file
      *
-     * @param inflater           To return a layout from onCreateView, you can inflate if from a layout resource
-     *                           defined in XML.
-     * @param container          Is the parent ViewGroup in which the fragment is Layout is inserted.
-     * @param savedInstanceState is a bundle that provides data about the previous instance of the
-     *                           fragment.
-     * @return a View that is the root of the fragments layout
+     * @param inflater The LayoutInflater object can be used to inflate any views in the fragment.
+     * @param container this is the parent view that the fragment's UI is attached to.
+     * @param savedInstanceState if non-null this fragment is being re-constructed from a previous saved state.
+     * @return return the view of the fragment's UI, or null.
      */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the fragment_category_layout
-        view = inflater.inflate(R.layout.fragment_category_layout, container, false);
+        View view = inflater.inflate(R.layout.fragment_category_layout, container, false);
 
         Log.d(LOGTAG, "onCreateVew");
 
@@ -88,7 +85,7 @@ public class CategoryFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // Get new or existing ViewModel from the ViewModel provider.
-        mQuestionViewModel = ViewModelProviders.of(getActivity()).get(QuestionViewModel.class);
+        mQuestionViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(QuestionViewModel.class);
         mCategoryViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(CategoryViewModel.class);
         // Observer the LiveData, return by get AlphabetizedCategories.
         // The onChanged() fires when the observed data changes and the activity is in the foreground.
@@ -97,6 +94,13 @@ public class CategoryFragment extends Fragment {
             public void onChanged(@Nullable final List<Category> categories) {
                 Log.d(LOGTAG, "" + categories);
                 adapter.setTitles(categories);
+
+                // Updates Widget
+                Context context = Objects.requireNonNull(getActivity()).getApplication();
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                ComponentName thisWidget = new ComponentName(context, AppWidget.class);
+                int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_stack_view);
             }
         });
 
@@ -104,16 +108,33 @@ public class CategoryFragment extends Fragment {
         // Used to delete Categories and all the questions in them.
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            /**
+             * onMove call when Item TouchHelper wants to move the dragged item from its old position
+             * to the new position.
+             *
+             * @param recyclerView The RecyclerView to which the ItemTouchHelper is attached.
+             * @param viewHolder The ViewHolder is being dragged by the user.
+             * @param viewHolder1 The ViewHolder over which the current active item is being dragged.
+             * @return the view of the fragment's UI, or null.
+             */
             @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
+                                  @NonNull RecyclerView.ViewHolder viewHolder1) {
                 return false;
             }
 
+            /**
+             * onSwiped Called when the ViewHolder is swiped by the user.
+             *
+             * @param viewHolder The ViewHolder which has been swiped by the user.
+             * @param direction The direction to which the ViewHolder is swiped(Left or Right).
+             */
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 mCategoryViewModel.delete(adapter.getCategoryAt(viewHolder.getAdapterPosition()));
                 mQuestionViewModel.deleteAllQuestions();
-                Toast.makeText(getActivity(), "Category and all questions in the category deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.category_swipe,
+                        Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
 
@@ -127,20 +148,7 @@ public class CategoryFragment extends Fragment {
                 // Create detailsFragment object
                 CategoryNewTitleFragment newTitleFragment = new CategoryNewTitleFragment();
 
-//                Animator circularReveal = ViewAnimationUtils.createCircularReveal(
-//                        view,
-//                        0,
-//                        0,
-//                        0,
-//                        (float) Math.hypot(view.getWidth(), view.getHeight()));
-//                circularReveal.setInterpolator(new AccelerateDecelerateInterpolator());
-//
-//                // Finally start the animation
-//                circularReveal.start();
-
-
                 // FragmentManager/FragmentTransaction
-                CategoryFragment categoryFragment = new CategoryFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = Objects.requireNonNull(fragmentManager).beginTransaction();
                 fragmentTransaction
@@ -155,57 +163,4 @@ public class CategoryFragment extends Fragment {
 
         return view;
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

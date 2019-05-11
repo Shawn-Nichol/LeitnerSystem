@@ -14,8 +14,11 @@ import com.example.leitnersystem.RoomCategory.CategoryRoomDatabase;
 
 import java.util.List;
 
+import static com.example.leitnersystem.Widget.AppWidget.EXTRA_ITEM_POSITION;
+
 public class WidgetService extends RemoteViewsService {
     private final String LOGTAG = "WidgetService";
+
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
@@ -23,10 +26,9 @@ public class WidgetService extends RemoteViewsService {
     }
 
     class ExampleWidgetItemFactory implements RemoteViewsFactory {
-        private Context context;
+        private final Context context;
         private int appWidgetId;
         private List<Category> categoryList;
-
 
         ExampleWidgetItemFactory(Context context, Intent intent){
             this.context = context;
@@ -37,17 +39,21 @@ public class WidgetService extends RemoteViewsService {
         @Override
         public void onCreate() {
             // Connect to data source
+            Log.d(LOGTAG, "onCreate");
             new dbAsyncTask().execute();
         }
 
         @Override
         public void onDataSetChanged() {
             // Updates widget
+            Log.d(LOGTAG, "onDataSetChanged");
+            new dbAsyncTask().execute();
         }
 
         @Override
         public void onDestroy() {
             // Close Data Source
+            Log.d(LOGTAG, "onDestroy");
         }
 
         @Override
@@ -57,11 +63,14 @@ public class WidgetService extends RemoteViewsService {
 
         @Override
         public RemoteViews getViewAt(int position) {
+            Log.d(LOGTAG, "getViewAt: " + position);
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_item);
-
             Category current = categoryList.get(position);
-
             views.setTextViewText(R.id.widget_item_text, current.getTitle());
+
+            Intent fillIntent = new Intent();
+            fillIntent.putExtra(EXTRA_ITEM_POSITION, position);
+            views.setOnClickFillInIntent(R.id.widget_item_text, fillIntent);
 
             return views;
         }
@@ -86,10 +95,10 @@ public class WidgetService extends RemoteViewsService {
             return true;
         }
 
-
         private class dbAsyncTask extends AsyncTask<Void, Void, Void> {
 
             protected  Void doInBackground(Void... voids) {
+                Log.d(LOGTAG, "dbAsyncTask doInBackground");
                 CategoryRoomDatabase database = CategoryRoomDatabase.getDatabase(context);
                 categoryList = database.CategoryDao().getAlphabetizedTitleWidget();
 
@@ -102,9 +111,5 @@ public class WidgetService extends RemoteViewsService {
                 return null;
             }
         }
-
     }
-
-
-
 }
